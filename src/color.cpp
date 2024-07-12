@@ -1,5 +1,7 @@
 #include "color.hpp"
 
+#include <utility>
+
 float unit_clamp(const float x) {
     if (x < 0.0)
         return 0.0;
@@ -35,14 +37,32 @@ Color::Color(const Color& other)
     : m_red{other.m_red}, m_green{other.m_green}, m_blue{other.m_blue}, m_alpha{other.m_alpha} {}
 
 Color Color::operator=(const Color& other) {
-    return Color(other);
+    if (this == &other) {
+        return *this;
+    }
+
+    m_red = other.r();
+    m_green = other.g();
+    m_blue = other.b();
+    m_alpha = other.a();
+
+    return *this;
 }
 
 Color::Color(Color&& other) noexcept
-    : m_red{other.m_red}, m_green{other.m_green}, m_blue{other.m_blue}, m_alpha{other.m_alpha} {}
+    : m_red{std::move(other.m_red)}, m_green{std::move(other.m_green)}, m_blue{std::move(other.m_blue)}, m_alpha{std::move(other.m_alpha)} {}
 
 Color Color::operator=(Color&& other) noexcept {
-    return Color(other);
+    if (this == &other) {
+        return *this;
+    }
+
+    m_red = std::move(other.r());
+    m_green = std::move(other.g());
+    m_blue = std::move(other.b());
+    m_alpha = std::move(other.a());
+
+    return *this;
 }
 
 float Color::r() const noexcept {
