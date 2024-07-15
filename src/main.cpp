@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "color.hpp"
+#include "renderer.hpp"
 #include "window.hpp"
 
 int main() {
@@ -15,8 +16,12 @@ int main() {
     const WindowSettings windowSettings{"FABRIK IK", 640, 640};
     Window window{windowSettings.title, windowSettings.width, windowSettings.height};
 
+    Renderer renderer = Renderer();
+
     try {
         window.init();
+        std::shared_ptr<Window> window_ref(&window, [](auto) {});
+        renderer.init(window_ref);
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << "\n";
         return 1;
