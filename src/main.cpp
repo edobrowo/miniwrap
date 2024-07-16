@@ -30,12 +30,14 @@ int main() {
     }
 
     std::vector<Vec2> joints;
-    Color joint_color{255, 0, 0};
+
+    Color clear_color(0, 0, 0);
+    Color arm_color{255, 0, 0};
 
     SDL_Event event;
     bool quit = false;
     while (!quit) {
-        renderer.clear(Color(0, 0, 0));
+        renderer.clear(clear_color);
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quit = true;
@@ -43,8 +45,8 @@ int main() {
                 if (event.key.keysym.sym == SDLK_q) {
                     quit = true;
                 }
-                if (event.key.keysym.sym == SDLK_d) {
-                    renderer.displayFrame();
+                if (event.key.keysym.sym == SDLK_r) {
+                    joints.clear();
                 }
             } else if (event.type == SDL_MOUSEBUTTONDOWN) {
                 int x, y;
@@ -55,11 +57,11 @@ int main() {
             }
         }
 
-        Vec2* prev;
-        for (Vec2 joint : joints) {
-            renderer.rectFill({static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10}, joint_color);
-            if (prev) {
-                renderer.line({static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())}, joint_color);
+        Vec2* prev = nullptr;
+        for (Vec2& joint : joints) {
+            renderer.rectFill({static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10}, arm_color);
+            if (prev != nullptr) {
+                renderer.line({static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())}, arm_color);
             }
             prev = &joint;
         }
