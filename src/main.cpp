@@ -1,9 +1,11 @@
 #include <SDL2/SDL.h>
 
 #include <iostream>
+#include <vector>
 
 #include "color.hpp"
 #include "renderer.hpp"
+#include "vec2.hpp"
 #include "window.hpp"
 
 int main() {
@@ -27,9 +29,13 @@ int main() {
         return 1;
     }
 
+    std::vector<Vec2> joints;
+    Color joint_color{255, 0, 0};
+
     SDL_Event event;
     bool quit = false;
     while (!quit) {
+        renderer.clear(Color(0, 0, 0));
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quit = true;
@@ -37,8 +43,28 @@ int main() {
                 if (event.key.keysym.sym == SDLK_q) {
                     quit = true;
                 }
+                if (event.key.keysym.sym == SDLK_d) {
+                    renderer.displayFrame();
+                }
+            } else if (event.type == SDL_MOUSEBUTTONDOWN) {
+                int x, y;
+                if (event.button.button == SDL_BUTTON_LEFT) {
+                    SDL_GetMouseState(&x, &y);
+                    joints.push_back(Vec2(x, y));
+                }
             }
         }
+
+        Vec2* prev;
+        for (Vec2 joint : joints) {
+            renderer.rectFill({static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10}, joint_color);
+            if (prev) {
+                renderer.line({static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())}, joint_color);
+            }
+            prev = &joint;
+        }
+
+        renderer.displayFrame();
     }
 
     SDL_Quit();

@@ -69,17 +69,17 @@ public:
     // Draw a line
     void line(const Line& line, const Color& color) const;
 
-    // Draw a filled rectangle area
-    void rectAreaFill(const RectangleRegion& rect, const Color& color) const;
+    // Draw a filled rectangle
+    void rectFill(const RectangleRegion& rect, const Color& color) const;
 
-    // Draw an outlined rectangle area
-    void rectAreaOutline(const RectangleRegion& rect, const Color& color) const;
+    // Draw an outlined rectangle
+    void rectOutline(const RectangleRegion& rect, const Color& color) const;
 
     // Draw a filled circle area
-    void circleAreaFill(const CircleRegion& circle, const Color& color) const;
+    void circleFill(const CircleRegion& circle, const Color& color) const;
 
     // Draw an outlined circle area
-    void circleAreaOutline(const CircleRegion& circle, const Color& color) const;
+    void circleOutline(const CircleRegion& circle, const Color& color) const;
 
 private:
     static RGB32 toRgb32(const Color& color);

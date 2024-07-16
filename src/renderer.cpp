@@ -44,27 +44,27 @@ void Renderer::line(const Line& line, const Color& color) const {
     SDL_RenderDrawLine(m_sdlRenderer.get(), line.x1, line.y1, line.x2, line.y2);
 }
 
-void Renderer::rectAreaFill(const RectangleRegion& rect, const Color& color) const {
+void Renderer::rectFill(const RectangleRegion& rect, const Color& color) const {
     RGB32 rgb = toRgb32(color);
     SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
 
-    SDL_Rect fillRect = {rect.x, rect.y, rect.width, rect.height};
-    SDL_RenderFillRect(m_sdlRenderer.get(), &fillRect);
+    SDL_Rect fill_rect = {rect.x, rect.y, rect.width, rect.height};
+    SDL_RenderFillRect(m_sdlRenderer.get(), &fill_rect);
 }
 
-void Renderer::rectAreaOutline(const RectangleRegion& rect, const Color& color) const {
+void Renderer::rectOutline(const RectangleRegion& rect, const Color& color) const {
     RGB32 rgb = toRgb32(color);
     SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
 
-    SDL_Rect outlineRect = {rect.x, rect.y, rect.width, rect.height};
-    SDL_RenderDrawRect(m_sdlRenderer.get(), &outlineRect);
+    SDL_Rect outline_rect = {rect.x, rect.y, rect.width, rect.height};
+    SDL_RenderDrawRect(m_sdlRenderer.get(), &outline_rect);
 }
 
-void Renderer::circleAreaFill(const CircleRegion& circle, const Color& color) const {
+void Renderer::circleFill(const CircleRegion& circle, const Color& color) const {
     // TODO
 }
 
-void Renderer::circleAreaOutline(const CircleRegion& circle, const Color& color) const {
+void Renderer::circleOutline(const CircleRegion& circle, const Color& color) const {
     // TODO
 }
 
