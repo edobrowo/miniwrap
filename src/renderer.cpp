@@ -10,7 +10,7 @@ void Renderer::init(std::weak_ptr<Window> win) {
     m_windowWidth = window_ref->width();
     m_windowHeight = window_ref->height();
 
-    SDL_Renderer* ren = SDL_CreateRenderer(window_ref->window(), -1, SDL_RENDERER_ACCELERATED);
+    SDL_Renderer* ren = SDL_CreateRenderer(window_ref->inner(), -1, SDL_RENDERER_ACCELERATED);
 
     if (!ren) {
         std::string message = std::string("Failed to create SDL renderer: ") + SDL_GetError();
