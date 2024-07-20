@@ -11,12 +11,8 @@ include_directories(/opt/homebrew/include)
 link_directories(/opt/homebrew/lib)
 link_libraries(SDL2)
 
-set(SRC_DIR src)
-set(BIN_DIR ${CMAKE_BINARY_DIR})
-set(EXEC main)
+include_directories(${CMAKE_SRC_DIR}/src)
 
-file(GLOB SRC_FILES "${SRC_DIR}/*.cpp")
-
-add_executable(${EXEC} ${SRC_FILES})
-
-set_target_properties(${EXEC} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${BIN_DIR})
+add_subdirectory(src/util)
+add_subdirectory(src/render)
+add_subdirectory(src/app)

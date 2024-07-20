@@ -1,0 +1,9 @@
+file(GLOB RENDER_SRC "*.cpp")
+add_library(render STATIC ${RENDER_SRC})
+
+include_directories(/opt/homebrew/include)
+
+link_directories(/opt/homebrew/lib)
+link_libraries(SDL2)
+
+include_directories(${CMAKE_SOURCE_DIR}/src/util)

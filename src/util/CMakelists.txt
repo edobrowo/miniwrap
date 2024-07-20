@@ -1,0 +1,2 @@
+file(GLOB UTIL_SRC "*.cpp")
+add_library(util STATIC ${UTIL_SRC})
