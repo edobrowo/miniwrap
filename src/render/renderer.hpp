@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "color.hpp"
+#include "rect.hpp"
 #include "window.hpp"
 
 class SDL_RendererDeleter {
@@ -36,13 +37,6 @@ struct Line {
     int y2;
 };
 
-struct RectangleRegion {
-    int x;
-    int y;
-    int width;
-    int height;
-};
-
 struct CircleRegion {
     int x;
     int y;
@@ -70,10 +64,10 @@ public:
     void line(const Line& line, const Color& color) const;
 
     // Draw a filled rectangle
-    void rectFill(const RectangleRegion& rect, const Color& color) const;
+    void rectFill(const Rect& rect, const Color& color) const;
 
     // Draw an outlined rectangle
-    void rectOutline(const RectangleRegion& rect, const Color& color) const;
+    void rectOutline(const Rect& rect, const Color& color) const;
 
     // Draw a filled circle area
     void circleFill(const CircleRegion& circle, const Color& color) const;
