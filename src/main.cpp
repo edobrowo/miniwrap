@@ -12,8 +12,7 @@ int main() {
     }
 
     try {
-        Application app;
-        app.start();
+        Application().start();
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << "\n";
         return 1;
