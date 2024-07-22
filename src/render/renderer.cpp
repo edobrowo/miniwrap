@@ -30,11 +30,11 @@ void Renderer::clear(const Color& color) const {
     SDL_RenderClear(m_sdlRenderer.get());
 }
 
-void Renderer::pixel(const Pixel& pixel, const Color& color) const {
+void Renderer::pixel(const Point& point, const Color& color) const {
     RGB32 rgb = toRgb32(color);
     SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
 
-    SDL_RenderDrawPoint(m_sdlRenderer.get(), pixel.x, pixel.y);
+    SDL_RenderDrawPoint(m_sdlRenderer.get(), point.x(), point.y());
 }
 
 void Renderer::line(const Line& line, const Color& color) const {
@@ -58,14 +58,6 @@ void Renderer::rectOutline(const Rect& rect, const Color& color) const {
 
     SDL_Rect outline_rect = {rect.x(), rect.y(), rect.width(), rect.height()};
     SDL_RenderDrawRect(m_sdlRenderer.get(), &outline_rect);
-}
-
-void Renderer::circleFill(const CircleRegion& circle, const Color& color) const {
-    // TODO
-}
-
-void Renderer::circleOutline(const CircleRegion& circle, const Color& color) const {
-    // TODO
 }
 
 RGB32 Renderer::toRgb32(const Color& color) {

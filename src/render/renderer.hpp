@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "color.hpp"
+#include "point.hpp"
 #include "rect.hpp"
 #include "window.hpp"
 
@@ -25,22 +26,11 @@ struct RGB32 {
     Uint8 a;
 };
 
-struct Pixel {
-    int x;
-    int y;
-};
-
 struct Line {
     int x1;
     int y1;
     int x2;
     int y2;
-};
-
-struct CircleRegion {
-    int x;
-    int y;
-    int radius;
 };
 
 class Window;
@@ -57,8 +47,8 @@ public:
     // Clear the viewport
     void clear(const Color& color) const;
 
-    // Draw a pixel
-    void pixel(const Pixel& pixel, const Color& color) const;
+    // Draw a point
+    void pixel(const Point& point, const Color& color) const;
 
     // Draw a line
     void line(const Line& line, const Color& color) const;
@@ -68,12 +58,6 @@ public:
 
     // Draw an outlined rectangle
     void rectOutline(const Rect& rect, const Color& color) const;
-
-    // Draw a filled circle area
-    void circleFill(const CircleRegion& circle, const Color& color) const;
-
-    // Draw an outlined circle area
-    void circleOutline(const CircleRegion& circle, const Color& color) const;
 
 private:
     static RGB32 toRgb32(const Color& color);
