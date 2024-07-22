@@ -4,16 +4,14 @@
 class Color {
 public:
     Color();
-
     Color(float r, float g, float b);
     Color(float r, float g, float b, float a);
-
     Color(int r, int g, int b);
     Color(int r, int g, int b, int a);
-
     Color(const Color& other);
-    Color operator=(const Color& other);
     Color(Color&& other) noexcept;
+
+    Color operator=(const Color& other);
     Color operator=(Color&& other) noexcept;
 
     float r() const noexcept;

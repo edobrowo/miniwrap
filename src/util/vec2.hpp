@@ -5,11 +5,10 @@ class Vec2 {
 public:
     Vec2();
     Vec2(const float x, const float y);
-
     Vec2(const Vec2& other);
-    Vec2 operator=(const Vec2& other);
-
     Vec2(Vec2&& other) noexcept;
+
+    Vec2 operator=(const Vec2& other);
     Vec2 operator=(Vec2&& other) noexcept;
 
     // Component access

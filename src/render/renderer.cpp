@@ -48,7 +48,7 @@ void Renderer::rectFill(const Rect& rect, const Color& color) const {
     RGB32 rgb = toRgb32(color);
     SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
 
-    SDL_Rect fill_rect = {rect.x, rect.y, rect.width, rect.height};
+    SDL_Rect fill_rect = {rect.x(), rect.y(), rect.width(), rect.height()};
     SDL_RenderFillRect(m_sdlRenderer.get(), &fill_rect);
 }
 
@@ -56,7 +56,7 @@ void Renderer::rectOutline(const Rect& rect, const Color& color) const {
     RGB32 rgb = toRgb32(color);
     SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
 
-    SDL_Rect outline_rect = {rect.x, rect.y, rect.width, rect.height};
+    SDL_Rect outline_rect = {rect.x(), rect.y(), rect.width(), rect.height()};
     SDL_RenderDrawRect(m_sdlRenderer.get(), &outline_rect);
 }
 
