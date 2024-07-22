@@ -1,5 +1,5 @@
-#ifndef __RECT__
-#define __RECT__
+#ifndef __RENDER_RECT__
+#define __RENDER_RECT__
 
 #include "point.hpp"
 

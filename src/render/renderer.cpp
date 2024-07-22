@@ -41,7 +41,7 @@ void Renderer::line(const Line& line, const Color& color) const {
     RGB32 rgb = toRgb32(color);
     SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
 
-    SDL_RenderDrawLine(m_sdlRenderer.get(), line.x1, line.y1, line.x2, line.y2);
+    SDL_RenderDrawLine(m_sdlRenderer.get(), line.x1(), line.y1(), line.x2(), line.y2());
 }
 
 void Renderer::rectFill(const Rect& rect, const Color& color) const {

@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "color.hpp"
+#include "line.hpp"
 #include "point.hpp"
 #include "rect.hpp"
 #include "window.hpp"
@@ -24,13 +25,6 @@ struct RGB32 {
     Uint8 g;
     Uint8 b;
     Uint8 a;
-};
-
-struct Line {
-    int x1;
-    int y1;
-    int x2;
-    int y2;
 };
 
 class Window;

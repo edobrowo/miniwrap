@@ -1,5 +1,5 @@
-#ifndef __POINT__
-#define __POINT__
+#ifndef __RENDER_POINT__
+#define __RENDER_POINT__
 
 class Point {
 public:
