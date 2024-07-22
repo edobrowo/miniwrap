@@ -2,6 +2,23 @@
 
 #include <utility>
 
+float unit_clamp(const float x) {
+    if (x < 0.0)
+        return 0.0;
+    else if (x > 1.0)
+        return 1.0;
+    return x;
+}
+
+float unit_clamp(const int x) {
+    float y = static_cast<float>(x);
+    if (y < 0.0)
+        y = 0.0;
+    else if (y > 255.0)
+        return 255.0;
+    return y / 255.0;
+}
+
 Color::Color() : m_red{0.0}, m_green{0.0}, m_blue{0.0}, m_alpha{1.0} {}
 
 Color::Color(const float r, const float g, const float b)
@@ -52,21 +69,4 @@ float Color::b() const noexcept {
 
 float Color::a() const noexcept {
     return m_alpha;
-}
-
-float unit_clamp(const float x) {
-    if (x < 0.0)
-        return 0.0;
-    else if (x > 1.0)
-        return 1.0;
-    return x;
-}
-
-float unit_clamp(const int x) {
-    float y = static_cast<float>(x);
-    if (y < 0.0)
-        y = 0.0;
-    else if (y > 255.0)
-        return 255.0;
-    return y / 255.0;
 }

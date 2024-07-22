@@ -8,7 +8,7 @@ Rect::Rect(const int width, const int height) : m_x{0}, m_y{0}, m_width{width}, 
 
 Rect::Rect(const Rect& other) : m_x{other.x()}, m_y{other.y()}, m_width{other.width()}, m_height{other.height()} {}
 
-Rect::Rect(Rect&& other) : m_x{std::move(other.x())}, m_y{std::move(other.y())}, m_width{std::move(other.width())}, m_height{std::move(other.height())} {}
+Rect::Rect(Rect&& other) noexcept : m_x{std::move(other.x())}, m_y{std::move(other.y())}, m_width{std::move(other.width())}, m_height{std::move(other.height())} {}
 
 Rect Rect::operator=(const Rect& other) {
     m_x = other.x();

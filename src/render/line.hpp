@@ -11,7 +11,7 @@ public:
     Line(Line&& other) noexcept;
 
     Line operator=(const Line& other);
-    Line operator=(Line&& other);
+    Line operator=(Line&& other) noexcept;
 
     int x1() const noexcept;
     int y1() const noexcept;

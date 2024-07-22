@@ -8,7 +8,7 @@ Line::Line(const Point& p1, const Point& p2) : m_x1{p1.x()}, m_y1{p1.y()}, m_x2{
 
 Line::Line(const Line& other) : m_x1{other.x1()}, m_y1{other.y1()}, m_x2{other.x2()}, m_y2{other.y2()} {}
 
-Line::Line(Line&& other) : m_x1{std::move(other.x1())}, m_y1{std::move(other.y1())}, m_x2{std::move(other.x2())}, m_y2{std::move(other.y2())} {}
+Line::Line(Line&& other) noexcept : m_x1{std::move(other.x1())}, m_y1{std::move(other.y1())}, m_x2{std::move(other.x2())}, m_y2{std::move(other.y2())} {}
 
 Line Line::operator=(const Line& other) {
     m_x1 = other.x1();
@@ -18,7 +18,7 @@ Line Line::operator=(const Line& other) {
     return *this;
 }
 
-Line Line::operator=(Line&& other) {
+Line Line::operator=(Line&& other) noexcept {
     m_x1 = std::move(other.x1());
     m_y1 = std::move(other.y1());
     m_x2 = std::move(other.x2());
