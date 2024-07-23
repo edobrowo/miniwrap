@@ -1,5 +1,5 @@
-#ifndef __VEC2__
-#define __VEC2__
+#ifndef __UTIL_VEC2__
+#define __UTIL_VEC2__
 
 class Vec2 {
 public:

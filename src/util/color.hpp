@@ -1,5 +1,5 @@
-#ifndef __COLOR__
-#define __COLOR__
+#ifndef __UTIL_COLOR__
+#define __UTIL_COLOR__
 
 class Color {
 public:
@@ -14,6 +14,7 @@ public:
     Color operator=(const Color& other);
     Color operator=(Color&& other) noexcept;
 
+    // Channel access
     float r() const noexcept;
     float g() const noexcept;
     float b() const noexcept;

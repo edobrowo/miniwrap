@@ -18,8 +18,10 @@ public:
 
     float distEuclidean() const noexcept;
     float distEuclidean(const Point& other) const noexcept;
+
     int distManhattan() const noexcept;
     int distManhattan(const Point& other) const noexcept;
+
     int distChebyshev() const noexcept;
     int distChebyshev(const Point& other) const noexcept;
 

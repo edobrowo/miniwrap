@@ -22,10 +22,12 @@ public:
     int bottom() const noexcept;
     int left() const noexcept;
     int right() const noexcept;
+
     Point center() const noexcept;
 
     bool contains(const int x, const int y) const noexcept;
     bool contains(const Point& point) const noexcept;
+
     bool surrounds(const int x, const int y) const noexcept;
     bool surrounds(const Point& point) const noexcept;
 
