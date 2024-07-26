@@ -1,11 +1,4 @@
 file(GLOB APP_SRC "*.cpp")
-add_executable(app ${APP_SRC})
-target_link_libraries(app render util)
-
-include_directories(/opt/homebrew/include)
-
-link_directories(/opt/homebrew/lib)
-link_libraries(SDL2)
-
-include_directories(${CMAKE_SOURCE_DIR}/src/util)
-include_directories(${CMAKE_SOURCE_DIR}/src/render)
+add_library(app STATIC ${APP_SRC})
+target_include_directories(app PUBLIC ${CMAKE_SOURCE_DIR}/src/app)
+target_link_libraries(app PUBLIC util render)

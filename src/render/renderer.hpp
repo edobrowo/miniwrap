@@ -35,8 +35,8 @@ public:
 
     void init(std::weak_ptr<Window> win);
 
-    // Display the next frame
-    void displayFrame() const;
+    // Display the current frame
+    void show() const;
 
     // Clear the viewport
     void clear(const Color& color) const;

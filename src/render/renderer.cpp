@@ -20,7 +20,7 @@ void Renderer::init(std::weak_ptr<Window> win) {
     m_sdlRenderer.reset(ren);
 }
 
-void Renderer::displayFrame() const {
+void Renderer::show() const {
     SDL_RenderPresent(m_sdlRenderer.get());
 }
 

@@ -6,13 +6,15 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Werror -Wall -Wpedantic -D_THREAD_SAFE")
 
-include_directories(/opt/homebrew/include)
+include_directories(/opt/homebrew/include ${CMAKE_SOURCE_DIR}/src)
 
 link_directories(/opt/homebrew/lib)
-link_libraries(SDL2)
-
-include_directories(${CMAKE_SRC_DIR}/src)
 
 add_subdirectory(src/util)
 add_subdirectory(src/render)
 add_subdirectory(src/app)
+
+add_executable(main src/main.cpp)
+
+target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/src/util ${CMAKE_SOURCE_DIR}/src/render ${CMAKE_SOURCE_DIR}/src/app)
+target_link_libraries(main SDL2 app)
