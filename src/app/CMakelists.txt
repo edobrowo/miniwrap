@@ -1,4 +1,4 @@
 file(GLOB APP_SRC "*.cpp")
 add_library(app STATIC ${APP_SRC})
 target_include_directories(app PUBLIC ${CMAKE_SOURCE_DIR}/src/app)
-target_link_libraries(app PUBLIC util render)
+target_link_libraries(app PUBLIC util render SDL2)
