@@ -18,11 +18,9 @@ Application::~Application() {
 }
 
 void Application::setup() {
-    //
 }
 
 void Application::teardown() {
-    //
 }
 
 void Application::start() {
