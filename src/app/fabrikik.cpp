@@ -1,12 +1,19 @@
 #include "fabrikik.hpp"
 
-FabrikIKApp::FabrikIKApp() {
-    //
+namespace {
+    struct AppSettings {
+        const char* title;
+        size_t width;
+        size_t height;
+    };
+
+    constexpr AppSettings settings{"FABRIK", 640, 640};
 }
 
-FabrikIKApp::~FabrikIKApp() {
-    //
+FabrikIKApp::FabrikIKApp() : Application(settings.title, settings.width, settings.height) {
 }
+
+FabrikIKApp::~FabrikIKApp() {}
 
 void FabrikIKApp::event(const SDL_Event& event) {
     if (event.type == SDL_QUIT) {

@@ -9,7 +9,7 @@
 
 class Application {
 public:
-    Application();
+    Application(const std::string& title, const size_t window_width, const size_t window_height);
     ~Application();
 
     virtual void setup();

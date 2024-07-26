@@ -1,6 +1,7 @@
 #include "application.hpp"
 
-Application::Application() : m_mainWindow{"Title", 640, 640}, m_loop{}, m_renderer{} {
+Application::Application(const std::string& title, const size_t window_width, const size_t window_height)
+    : m_mainWindow{title, window_width, window_height}, m_loop{}, m_renderer{} {
     int err = SDL_InitSubSystem(SDL_INIT_VIDEO);
     if (err != 0) {
         std::string message = std::string("Failed to update SDL window") + SDL_GetError();

@@ -22,12 +22,6 @@ public:
     Window(const std::string& title, const size_t width, const size_t height);
     ~Window();
 
-    // TODO
-    // Window(const Window& other);
-    // Window operator=(const Window& other);
-    // Window(Window&& other);
-    // Window operator=(Window&& other);
-
     void init(uint32_t flags);
     void init();
 
