@@ -1,4 +1,4 @@
-#include "fabrikik.hpp"
+#include "fabrik.hpp"
 
 namespace {
     struct AppSettings {
@@ -10,12 +10,12 @@ namespace {
     constexpr AppSettings settings{"FABRIK", 640, 640};
 }
 
-FabrikIKApp::FabrikIKApp() : Application(settings.title, settings.width, settings.height) {
+Fabrik::Fabrik() : Application(settings.title, settings.width, settings.height) {
 }
 
-FabrikIKApp::~FabrikIKApp() {}
+Fabrik::~Fabrik() {}
 
-void FabrikIKApp::event(const SDL_Event& event) {
+void Fabrik::event(const SDL_Event& event) {
     if (event.type == SDL_QUIT) {
         quit();
     } else if (event.type == SDL_KEYDOWN) {
@@ -34,14 +34,15 @@ void FabrikIKApp::event(const SDL_Event& event) {
     }
 }
 
-void FabrikIKApp::update() {
+void Fabrik::update() {
     render().clear(m_clearColor);
+    render().setColor(m_armColor);
 
     Vec2* prev = nullptr;
     for (Vec2& joint : m_joints) {
-        render().rectFill({static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10}, m_armColor);
+        render().rectFill(Rect(static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10));
         if (prev != nullptr) {
-            render().line({static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())}, m_armColor);
+            render().line(Line(static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())));
         }
         prev = &joint;
     }

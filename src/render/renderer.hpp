@@ -35,23 +35,22 @@ public:
 
     void init(std::weak_ptr<Window> win);
 
-    // Display the current frame
     void show() const;
-
-    // Clear the viewport
     void clear(const Color& color) const;
 
-    // Draw a point
-    void pixel(const Point& point, const Color& color) const;
+    void setColor(const Color& color) const;
 
-    // Draw a line
-    void line(const Line& line, const Color& color) const;
+    void pixel(const Point& point) const;
+    void pixel(const int x, const int y) const;
 
-    // Draw a filled rectangle
-    void rectFill(const Rect& rect, const Color& color) const;
+    void line(const Line& line) const;
+    void line(const int x1, const int y1, const int x2, const int y2) const;
 
-    // Draw an outlined rectangle
-    void rectOutline(const Rect& rect, const Color& color) const;
+    void rectFill(const Rect& rect) const;
+    void rectFill(const int x, const int y, const int width, const int height) const;
+
+    void rectOutline(const Rect& rect) const;
+    void rectOutline(const int x, const int y, const int width, const int height) const;
 
 private:
     static RGB32 toRgb32(const Color& color);

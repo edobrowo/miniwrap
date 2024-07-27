@@ -6,10 +6,10 @@
 #include "application.hpp"
 #include "vec2.hpp"
 
-class FabrikIKApp : public Application {
+class Fabrik : public Application {
 public:
-    FabrikIKApp();
-    ~FabrikIKApp();
+    Fabrik();
+    ~Fabrik();
 
     void event(const SDL_Event& event) override;
     void update() override;
