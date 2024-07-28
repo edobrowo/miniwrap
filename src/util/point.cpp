@@ -33,6 +33,14 @@ int Point::y() const noexcept {
     return m_y;
 }
 
+void Point::setX(const int x) noexcept {
+    m_x = x;
+}
+
+void Point::setY(const int y) noexcept {
+    m_y = y;
+}
+
 Point Point::transposed() const noexcept {
     return Point(m_y, m_x);
 }

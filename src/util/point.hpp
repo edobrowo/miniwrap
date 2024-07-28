@@ -14,6 +14,9 @@ public:
     int x() const noexcept;
     int y() const noexcept;
 
+    void setX(const int x) noexcept;
+    void setY(const int y) noexcept;
+
     Point transposed() const noexcept;
 
     float distEuclidean() const noexcept;
