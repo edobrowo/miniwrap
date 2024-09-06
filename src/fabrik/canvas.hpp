@@ -4,11 +4,11 @@
 #include <vector>
 
 #include "color.hpp"
+#include "component.hpp"
 #include "point.hpp"
 #include "vec2.hpp"
-#include "widget.hpp"
 
-class Canvas : public Widget {
+class Canvas : public Component {
 public:
     Canvas();
     ~Canvas() override;

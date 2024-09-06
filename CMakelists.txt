@@ -13,8 +13,9 @@ link_directories(/opt/homebrew/lib)
 add_subdirectory(src/util)
 add_subdirectory(src/render)
 add_subdirectory(src/app)
+add_subdirectory(src/fabrik)
 
 add_executable(main src/main.cpp)
 
-target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/src/util ${CMAKE_SOURCE_DIR}/src/render ${CMAKE_SOURCE_DIR}/src/app)
-target_link_libraries(main app)
+target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/src/util ${CMAKE_SOURCE_DIR}/src/render ${CMAKE_SOURCE_DIR}/src/app ${CMAKE_SOURCE_DIR}/src/fabrik)
+target_link_libraries(main fabrik)

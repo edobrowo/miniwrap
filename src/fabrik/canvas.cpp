@@ -1,6 +1,8 @@
 #include "canvas.hpp"
 
-Canvas::Canvas() : Widget() {}
+#include <iostream>
+
+Canvas::Canvas() : Component(), m_placing{true} {}
 
 Canvas::~Canvas() {}
 
@@ -27,6 +29,9 @@ void Canvas::event(const SDL_Event& event) {
         m_mousePos.setX(x);
         m_mousePos.setY(y);
     }
+}
+
+void Canvas::update() {
 }
 
 void Canvas::render(const Renderer& renderer) {

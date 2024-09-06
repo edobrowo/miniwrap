@@ -6,21 +6,21 @@
 #include <memory>
 #include <vector>
 
+#include "component.hpp"
 #include "eventloop.hpp"
 #include "renderer.hpp"
-#include "widget.hpp"
 #include "window.hpp"
 
 class Application {
 public:
-    using WidgetPtr = std::unique_ptr<Widget>;
+    using ComponentPtr = std::unique_ptr<Component>;
 
     Application(const std::string& title, const size_t window_width, const size_t window_height);
     ~Application();
 
     void init();
 
-    void addWidget(WidgetPtr widget);
+    void addComponent(ComponentPtr widget);
     void start();
 
     void event(const SDL_Event& event);
@@ -36,7 +36,7 @@ private:
     EventLoop m_loop;
     Renderer m_renderer;
 
-    std::vector<WidgetPtr> m_widgets;
+    std::vector<ComponentPtr> m_components;
 };
 
 #endif

@@ -1,14 +1,14 @@
-#ifndef __WIDGET__
-#define __WIDGET__
+#ifndef __COMPONENT__
+#define __COMPONENT__
 
 #include <SDL2/SDL.h>
 
 #include "renderer.hpp"
 
-class Widget {
+class Component {
 public:
-    Widget();
-    virtual ~Widget();
+    Component();
+    virtual ~Component() = 0;
 
     virtual void event(const SDL_Event& event);
     virtual void update();

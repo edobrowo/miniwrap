@@ -24,9 +24,8 @@ int main() {
         return 1;
     }
 
-    Canvas c = Canvas();
-    // std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
-    // app.addWidget(std::move(canvas));
+    std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
+    app.addComponent(std::move(canvas));
 
-    // app.start();
+    app.start();
 }

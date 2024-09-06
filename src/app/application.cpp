@@ -21,8 +21,8 @@ void Application::init() {
     m_renderer.init(window_ref);
 }
 
-void Application::addWidget(WidgetPtr widget) {
-    m_widgets.push_back(std::move(widget));
+void Application::addComponent(ComponentPtr widget) {
+    m_components.push_back(std::move(widget));
 }
 
 void Application::start() {
@@ -30,7 +30,7 @@ void Application::start() {
 }
 
 void Application::event(const SDL_Event& event) {
-    for (WidgetPtr& wptr : m_widgets) {
+    for (ComponentPtr& wptr : m_components) {
         wptr->event(event);
     }
 }
@@ -41,7 +41,7 @@ void Application::tick() {
 }
 
 void Application::update() {
-    for (WidgetPtr& wptr : m_widgets) {
+    for (ComponentPtr& wptr : m_components) {
         wptr->update();
         if (!wptr->isRunning()) {
             quit();
@@ -50,7 +50,7 @@ void Application::update() {
 }
 
 void Application::render() {
-    for (WidgetPtr& wptr : m_widgets) {
+    for (ComponentPtr& wptr : m_components) {
         wptr->render(m_renderer);
     }
 }
