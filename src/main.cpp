@@ -1,12 +1,32 @@
 #include <iostream>
+#include <memory>
 
-#include "fabrik.hpp"
+#include "application.hpp"
+#include "canvas.hpp"
+
+namespace {
+    struct AppSettings {
+        const char* title;
+        size_t width;
+        size_t height;
+    };
+
+    constexpr AppSettings settings{"FABRIK", 640, 640};
+}
 
 int main() {
+    Application app{settings.title, settings.width, settings.height};
+
     try {
-        Fabrik().start();
+        app.init();
     } catch (const std::runtime_error& e) {
         std::cerr << e.what() << "\n";
         return 1;
     }
+
+    Canvas c = Canvas();
+    // std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
+    // app.addWidget(std::move(canvas));
+
+    // app.start();
 }

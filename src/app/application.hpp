@@ -3,28 +3,40 @@
 
 #include <SDL2/SDL.h>
 
+#include <memory>
+#include <vector>
+
 #include "eventloop.hpp"
 #include "renderer.hpp"
+#include "widget.hpp"
 #include "window.hpp"
 
 class Application {
 public:
+    using WidgetPtr = std::unique_ptr<Widget>;
+
     Application(const std::string& title, const size_t window_width, const size_t window_height);
     ~Application();
 
-    virtual void setup();
-    virtual void event(const SDL_Event& event) = 0;
-    virtual void update() = 0;
-    virtual void teardown();
+    void init();
 
+    void addWidget(WidgetPtr widget);
     void start();
-    void quit();
-    const Renderer& render();
+
+    void event(const SDL_Event& event);
+    void tick();
 
 private:
+    void update();
+    void render();
+
+    void quit();
+
     Window m_mainWindow;
     EventLoop m_loop;
     Renderer m_renderer;
+
+    std::vector<WidgetPtr> m_widgets;
 };
 
 #endif

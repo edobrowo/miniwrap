@@ -1,21 +1,10 @@
-#include "fabrik.hpp"
+#include "canvas.hpp"
 
-namespace {
-    struct AppSettings {
-        const char* title;
-        size_t width;
-        size_t height;
-    };
+Canvas::Canvas() : Widget() {}
 
-    constexpr AppSettings settings{"FABRIK", 640, 640};
-}
+Canvas::~Canvas() {}
 
-Fabrik::Fabrik() : Application(settings.title, settings.width, settings.height), m_placing{true} {
-}
-
-Fabrik::~Fabrik() {}
-
-void Fabrik::event(const SDL_Event& event) {
+void Canvas::event(const SDL_Event& event) {
     if (event.type == SDL_QUIT) {
         quit();
     } else if (event.type == SDL_KEYDOWN) {
@@ -40,25 +29,25 @@ void Fabrik::event(const SDL_Event& event) {
     }
 }
 
-void Fabrik::update() {
-    render().clear(m_clearColor);
+void Canvas::render(const Renderer& renderer) {
+    renderer.clear(m_clearColor);
 
-    render().setColor(m_armColor);
+    renderer.setColor(m_armColor);
     Vec2* prev = nullptr;
     for (Vec2& joint : m_joints) {
-        render().rectFill(Rect(static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10));
+        renderer.rectFill(Rect(static_cast<int>(joint.x()) - 5, static_cast<int>(joint.y()) - 5, 10, 10));
         if (prev != nullptr) {
-            render().line(Line(static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())));
+            renderer.line(Line(static_cast<int>(prev->x()), static_cast<int>(prev->y()), static_cast<int>(joint.x()), static_cast<int>(joint.y())));
         }
         prev = &joint;
     }
 
     if (!m_joints.empty() && m_placing) {
         const Vec2& last = m_joints.back();
-        render().line(Line(Point(last.x(), last.y()), m_mousePos));
+        renderer.line(Line(Point(last.x(), last.y()), m_mousePos));
     }
 
-    render().show();
+    renderer.show();
 }
 
 // TODO

@@ -1,18 +1,21 @@
-#ifndef __FABRIKIK__
-#define __FABRIKIK__
+#ifndef __CANVAS__
+#define __CANVAS__
 
 #include <vector>
 
-#include "application.hpp"
+#include "color.hpp"
+#include "point.hpp"
 #include "vec2.hpp"
+#include "widget.hpp"
 
-class Fabrik : public Application {
+class Canvas : public Widget {
 public:
-    Fabrik();
-    ~Fabrik();
+    Canvas();
+    ~Canvas() override;
 
     void event(const SDL_Event& event) override;
     void update() override;
+    void render(const Renderer& renderer) override;
 
 private:
     std::vector<Vec2> m_joints;

@@ -23,6 +23,6 @@ void EventLoop::run(Application& app) {
         while (SDL_PollEvent(&event)) {
             app.event(event);
         }
-        app.update();
+        app.tick();
     }
 }
