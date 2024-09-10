@@ -4,10 +4,10 @@ MouseScrollEvent::MouseScrollEvent(
     const int timestamp,
     const int x,
     const int y,
-    const mouse::ScrollDirection direction,
+    const ScrollDirection direction,
     const float scroll_horizontal,
     const float scroll_vertical)
-    : Event(Event::Kind::MouseScroll, timestamp),
+    : Event{Event::Kind::MouseScroll, timestamp},
       m_position{Point{x, y}},
       m_direction{direction},
       m_horizontal{scroll_horizontal},
@@ -25,6 +25,10 @@ int MouseScrollEvent::x() const noexcept {
 
 int MouseScrollEvent::y() const noexcept {
     return m_position.y();
+}
+
+ScrollDirection MouseScrollEvent::direction() const noexcept {
+    return m_direction;
 }
 
 float MouseScrollEvent::horizontal() const noexcept {

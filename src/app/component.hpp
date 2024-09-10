@@ -1,8 +1,7 @@
 #ifndef __COMPONENT__
 #define __COMPONENT__
 
-#include <SDL2/SDL.h>
-
+#include "event.hpp"
 #include "renderer.hpp"
 
 class Component {
@@ -10,7 +9,7 @@ public:
     Component();
     virtual ~Component() = 0;
 
-    virtual void event(const SDL_Event& event);
+    virtual void event(const Event& event);
     virtual void update();
     virtual void render(const Renderer& renderer);
 

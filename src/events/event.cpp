@@ -10,6 +10,10 @@ Event::Event(const Kind kind, const int timestamp)
 
 Event::~Event() {}
 
+Event::Kind Event::kind() const noexcept {
+    return m_kind;
+}
+
 int Event::timestamp() const noexcept {
     return m_timestamp;
 }

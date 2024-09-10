@@ -2,32 +2,49 @@
 
 #include <iostream>
 
+#include "event_names.hpp"
+#include "keyboard_event.hpp"
+#include "mouse_click_event.hpp"
+#include "mouse_move_event.hpp"
+
 Canvas::Canvas() : Component(), m_placing{true} {}
 
 Canvas::~Canvas() {}
 
-void Canvas::event(const SDL_Event& event) {
-    if (event.type == SDL_QUIT) {
+void Canvas::event(const Event& event) {
+    if (event.kind() == Event::Kind::Quit) {
         quit();
-    } else if (event.type == SDL_KEYDOWN) {
-        if (event.key.keysym.sym == SDLK_q) {
+    } else if (event.kind() == Event::Kind::Keyboard) {
+        const KeyboardEvent& keyboard_event = dynamic_cast<const KeyboardEvent&>(event);
+
+        if (!keyboard_event.isPressed()) {
+            return;
+        }
+
+        switch (keyboard_event.keycode()) {
+        case Keycode::Q:
             quit();
-        } else if (event.key.keysym.sym == SDLK_r) {
+            break;
+        case Keycode::R:
             m_joints.clear();
-        } else if (event.key.keysym.sym == SDLK_e) {
+            break;
+        case Keycode::E:
             m_placing = !m_placing;
+            break;
+        default:
+            break;
         }
-    } else if (event.type == SDL_MOUSEBUTTONDOWN) {
-        int x, y;
-        if (event.button.button == SDL_BUTTON_LEFT && m_placing) {
-            SDL_GetMouseState(&x, &y);
-            m_joints.push_back(Vec2(x, y));
+
+    } else if (event.kind() == Event::Kind::MouseClick) {
+        const MouseClickEvent& click_event = dynamic_cast<const MouseClickEvent&>(event);
+
+        if (click_event.isPressed() && click_event.button() == MouseButton::Left) {
+            m_joints.push_back(Vec2(click_event.x(), click_event.y()));
         }
-    } else if (event.type == SDL_MOUSEMOTION) {
-        int x, y;
-        SDL_GetMouseState(&x, &y);
-        m_mousePos.setX(x);
-        m_mousePos.setY(y);
+
+    } else if (event.kind() == Event::Kind::MouseMove) {
+        const MouseMoveEvent& move_event = dynamic_cast<const MouseMoveEvent&>(event);
+        m_mousePos = move_event.pos();
     }
 }
 

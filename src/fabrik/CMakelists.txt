@@ -1,4 +1,4 @@
 file(GLOB FABRIK_SRC "*.cpp")
 add_library(fabrik STATIC ${FABRIK_SRC})
 target_include_directories(fabrik PUBLIC ${CMAKE_SOURCE_DIR}/src/fabrik)
-target_link_libraries(fabrik PUBLIC app util render SDL2)
+target_link_libraries(fabrik PUBLIC app event util render SDL2)

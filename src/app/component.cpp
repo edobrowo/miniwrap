@@ -4,7 +4,7 @@ Component::Component() : m_running{true} {}
 
 Component::~Component() {}
 
-void Component::event(const SDL_Event& event) {
+void Component::event(const Event& event) {
 }
 
 void Component::update() {

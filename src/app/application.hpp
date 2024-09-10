@@ -1,12 +1,11 @@
 #ifndef __APPLICATION__
 #define __APPLICATION__
 
-#include <SDL2/SDL.h>
-
 #include <memory>
 #include <vector>
 
 #include "component.hpp"
+#include "event.hpp"
 #include "eventloop.hpp"
 #include "renderer.hpp"
 #include "window.hpp"
@@ -23,7 +22,7 @@ public:
     void addComponent(ComponentPtr widget);
     void start();
 
-    void event(const SDL_Event& event);
+    void event(const Event& event);
     void tick();
 
 private:

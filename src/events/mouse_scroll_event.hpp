@@ -11,7 +11,7 @@ public:
         const int timestamp,
         const int x,
         const int y,
-        const mouse::ScrollDirection direction,
+        const ScrollDirection direction,
         const float scroll_horizontal,
         const float scroll_vertical);
     ~MouseScrollEvent();
@@ -20,12 +20,14 @@ public:
     int x() const noexcept;
     int y() const noexcept;
 
+    ScrollDirection direction() const noexcept;
+
     float horizontal() const noexcept;
     float vertical() const noexcept;
 
 private:
     Point m_position;
-    mouse::ScrollDirection m_direction;
+    ScrollDirection m_direction;
     float m_horizontal;
     float m_vertical;
 };

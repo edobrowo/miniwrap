@@ -18,9 +18,9 @@ public:
     int x() const noexcept;
     int y() const noexcept;
 
-    Point posRelative() const noexcept;
-    int xRelative() const noexcept;
-    int yRelative() const noexcept;
+    Point relative() const noexcept;
+    int xrel() const noexcept;
+    int yrel() const noexcept;
 
 private:
     Point m_position;

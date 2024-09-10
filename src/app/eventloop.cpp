@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "application.hpp"
+#include "event_builder.hpp"
 
 EventLoop::EventLoop() : m_running{false} {}
 
@@ -18,9 +19,10 @@ void EventLoop::quit() {
 }
 
 void EventLoop::run(Application& app) {
-    SDL_Event event;
+    SDL_Event sdl_event;
     while (m_running) {
-        while (SDL_PollEvent(&event)) {
+        while (SDL_PollEvent(&sdl_event)) {
+            Event event = fromSdlEvent(&sdl_event);
             app.event(event);
         }
         app.tick();

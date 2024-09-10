@@ -11,6 +11,8 @@ public:
         MouseScroll,
 
         Keyboard = 200,
+
+        Quit = 300,
     };
 
     Event();

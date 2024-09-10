@@ -1,29 +1,29 @@
-#include "mouse_event.hpp"
+#include "mouse_click_event.hpp"
 
 MouseClickEvent::MouseClickEvent(
     const int timestamp,
     const int x,
     const int y,
-    const mouse::Button button,
+    const MouseButton button,
     const bool is_pressed,
     const int click_count)
-    : Event(Event::Kind::MouseClick, timestamp),
+    : Event{Event::Kind::MouseClick, timestamp},
       m_position{Point(x, y)},
       m_button{button},
-      m_state{is_pressed ? mouse::ButtonState::Pressed : mouse::ButtonState::Released},
+      m_state{is_pressed ? MouseButtonState::Pressed : MouseButtonState::Released},
       m_clickCount{click_count} {}
 
 MouseClickEvent::~MouseClickEvent() {}
 
 bool MouseClickEvent::isPressed() const noexcept {
-    return m_state == mouse::ButtonState::Pressed;
+    return m_state == MouseButtonState::Pressed;
 }
 
 bool MouseClickEvent::isReleased() const noexcept {
-    return m_state == mouse::ButtonState::Released;
+    return m_state == MouseButtonState::Released;
 }
 
-mouse::Button MouseClickEvent::button() const noexcept {
+MouseButton MouseClickEvent::button() const noexcept {
     return m_button;
 }
 

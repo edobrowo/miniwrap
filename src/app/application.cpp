@@ -1,5 +1,9 @@
 #include "application.hpp"
 
+#include <SDL2/SDL.h>
+
+#include "event_builder.hpp"
+
 Application::Application(const std::string& title, const size_t window_width, const size_t window_height)
     : m_mainWindow{title, window_width, window_height}, m_loop{}, m_renderer{} {
 }
@@ -29,9 +33,9 @@ void Application::start() {
     m_loop.start(*this);
 }
 
-void Application::event(const SDL_Event& event) {
-    for (ComponentPtr& wptr : m_components) {
-        wptr->event(event);
+void Application::event(const Event& event) {
+    for (ComponentPtr& cptr : m_components) {
+        cptr->event(event);
     }
 }
 
@@ -41,17 +45,17 @@ void Application::tick() {
 }
 
 void Application::update() {
-    for (ComponentPtr& wptr : m_components) {
-        wptr->update();
-        if (!wptr->isRunning()) {
+    for (ComponentPtr& cptr : m_components) {
+        cptr->update();
+        if (!cptr->isRunning()) {
             quit();
         }
     }
 }
 
 void Application::render() {
-    for (ComponentPtr& wptr : m_components) {
-        wptr->render(m_renderer);
+    for (ComponentPtr& cptr : m_components) {
+        cptr->render(m_renderer);
     }
 }
 
