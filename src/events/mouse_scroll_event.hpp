@@ -7,13 +7,10 @@
 
 class MouseScrollEvent : public Event {
 public:
-    MouseScrollEvent(
-        const int timestamp,
-        const int x,
-        const int y,
-        const ScrollDirection direction,
-        const float scroll_horizontal,
-        const float scroll_vertical);
+    MouseScrollEvent(const int timestamp, const int x, const int y,
+                     const ScrollDirection direction,
+                     const float scroll_horizontal,
+                     const float scroll_vertical);
     ~MouseScrollEvent();
 
     Point pos() const noexcept;

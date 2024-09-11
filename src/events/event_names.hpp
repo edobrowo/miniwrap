@@ -12,10 +12,7 @@ enum class MouseButtonState {
     Released,
 };
 
-enum class ScrollDirection {
-    Up = 0,
-    Down
-};
+enum class ScrollDirection { Up = 0, Down };
 
 enum class KeyState {
     Pressed = 0,

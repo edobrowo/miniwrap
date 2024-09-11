@@ -14,9 +14,7 @@ void EventLoop::start(Application& app) {
     run(app);
 }
 
-void EventLoop::quit() {
-    m_running = false;
-}
+void EventLoop::quit() { m_running = false; }
 
 void EventLoop::run(Application& app) {
     SDL_Event sdl_event;

@@ -7,13 +7,9 @@
 
 class MouseClickEvent : public Event {
 public:
-    MouseClickEvent(
-        const int timestamp,
-        const int x,
-        const int y,
-        const MouseButton button,
-        const bool is_pressed,
-        const int click_count);
+    MouseClickEvent(const int timestamp, const int x, const int y,
+                    const MouseButton button, const bool is_pressed,
+                    const int click_count);
 
     ~MouseClickEvent();
 

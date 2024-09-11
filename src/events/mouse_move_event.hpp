@@ -6,12 +6,8 @@
 
 class MouseMoveEvent : public Event {
 public:
-    MouseMoveEvent(
-        const int timestamp,
-        const int x,
-        const int y,
-        const int rel_x,
-        const int rel_y);
+    MouseMoveEvent(const int timestamp, const int x, const int y,
+                   const int rel_x, const int rel_y);
     ~MouseMoveEvent();
 
     Point pos() const noexcept;
