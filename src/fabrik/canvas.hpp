@@ -13,7 +13,10 @@ public:
     Canvas();
     ~Canvas() override;
 
-    void event(const Event* event) override;
+    void onMouseClick(const MouseClickEvent* event) override;
+    void onMouseMove(const MouseMoveEvent* event) override;
+    void onKeyPress(const KeyboardEvent* event) override;
+
     void update() override;
     void render(const Renderer& renderer) override;
 
