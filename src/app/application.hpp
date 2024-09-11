@@ -14,7 +14,8 @@ class Application {
 public:
     using ComponentPtr = std::unique_ptr<Component>;
 
-    Application(const std::string& title, const size_t window_width, const size_t window_height);
+    Application(const std::string& title, const size_t window_width,
+                const size_t window_height);
     ~Application();
 
     void init();
@@ -22,7 +23,7 @@ public:
     void addComponent(ComponentPtr widget);
     void start();
 
-    void event(const Event& event);
+    void event(const Event* event);
     void tick();
 
 private:

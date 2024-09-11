@@ -11,18 +11,18 @@ Canvas::Canvas() : Component(), m_placing{true} {}
 
 Canvas::~Canvas() {}
 
-void Canvas::event(const Event& event) {
-    if (event.kind() == Event::Kind::Quit) {
+void Canvas::event(const Event* event) {
+    if (event->kind() == Event::Kind::Quit) {
         quit();
-    } else if (event.kind() == Event::Kind::Keyboard) {
-        const KeyboardEvent& keyboard_event =
-            static_cast<const KeyboardEvent&>(event);
+    } else if (event->kind() == Event::Kind::Keyboard) {
+        const KeyboardEvent* keyboard_event =
+            static_cast<const KeyboardEvent*>(event);
 
-        if (!keyboard_event.isPressed()) {
+        if (!keyboard_event->isPressed()) {
             return;
         }
 
-        switch (keyboard_event.keycode()) {
+        switch (keyboard_event->keycode()) {
         case Keycode::Q:
             quit();
             break;
@@ -36,19 +36,19 @@ void Canvas::event(const Event& event) {
             break;
         }
 
-    } else if (event.kind() == Event::Kind::MouseClick) {
-        const MouseClickEvent& click_event =
-            static_cast<const MouseClickEvent&>(event);
+    } else if (event->kind() == Event::Kind::MouseClick) {
+        const MouseClickEvent* click_event =
+            static_cast<const MouseClickEvent*>(event);
 
-        if (click_event.isPressed() &&
-            click_event.button() == MouseButton::Left) {
-            m_joints.push_back(Vec2(click_event.x(), click_event.y()));
+        if (click_event->isPressed() &&
+            click_event->button() == MouseButton::Left) {
+            m_joints.push_back(Vec2(click_event->x(), click_event->y()));
         }
 
-    } else if (event.kind() == Event::Kind::MouseMove) {
-        const MouseMoveEvent& move_event =
-            static_cast<const MouseMoveEvent&>(event);
-        m_mousePos = move_event.pos();
+    } else if (event->kind() == Event::Kind::MouseMove) {
+        const MouseMoveEvent* move_event =
+            static_cast<const MouseMoveEvent*>(event);
+        m_mousePos = move_event->pos();
     }
 }
 

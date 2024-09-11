@@ -7,11 +7,8 @@
 
 class KeyboardEvent : public Event {
 public:
-    KeyboardEvent(
-        const int timestamp,
-        const Keycode keycode,
-        const bool is_pressed,
-        const uint16_t mod_flags);
+    KeyboardEvent(const int timestamp, const Keycode keycode,
+                  const bool is_pressed, const uint16_t mod_flags);
     ~KeyboardEvent();
 
     Keycode keycode() const noexcept;

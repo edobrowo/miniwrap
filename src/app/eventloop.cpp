@@ -20,8 +20,9 @@ void EventLoop::run(Application& app) {
     SDL_Event sdl_event;
     while (m_running) {
         while (SDL_PollEvent(&sdl_event)) {
-            Event event = fromSdlEvent(&sdl_event);
+            Event* event = fromSdlEvent(&sdl_event);
             app.event(event);
+            delete event;
         }
         app.tick();
     }

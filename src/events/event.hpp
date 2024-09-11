@@ -17,7 +17,7 @@ public:
 
     Event();
     Event(const Kind kind, const int timestamp);
-    ~Event();
+    virtual ~Event();
 
     virtual Kind kind() const noexcept;
     int timestamp() const noexcept;

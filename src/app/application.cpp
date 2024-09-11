@@ -34,7 +34,7 @@ void Application::addComponent(ComponentPtr widget) {
 
 void Application::start() { m_loop.start(*this); }
 
-void Application::event(const Event& event) {
+void Application::event(const Event* event) {
     for (ComponentPtr& cptr : m_components) {
         cptr->event(event);
     }

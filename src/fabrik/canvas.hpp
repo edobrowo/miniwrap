@@ -13,7 +13,7 @@ public:
     Canvas();
     ~Canvas() override;
 
-    void event(const Event& event) override;
+    void event(const Event* event) override;
     void update() override;
     void render(const Renderer& renderer) override;
 

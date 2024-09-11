@@ -9,7 +9,7 @@ public:
     Component();
     virtual ~Component() = 0;
 
-    virtual void event(const Event& event);
+    virtual void event(const Event* event);
     virtual void update();
     virtual void render(const Renderer& renderer);
 
