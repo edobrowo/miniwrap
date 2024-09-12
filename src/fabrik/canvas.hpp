@@ -24,9 +24,6 @@ private:
     std::vector<Vec2> m_joints;
     Point m_mousePos;
     bool m_placing;
-
-    const Color m_clearColor{0, 0, 0};
-    const Color m_armColor{255, 0, 0};
 };
 
 #endif

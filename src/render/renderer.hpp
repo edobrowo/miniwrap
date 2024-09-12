@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include <memory>
+#include <vector>
 
 #include "color.hpp"
 #include "line.hpp"
@@ -40,17 +41,22 @@ public:
 
     void setColor(const Color& color) const;
 
-    void pixel(const Point& point) const;
     void pixel(const int x, const int y) const;
+    void pixel(const Point& point) const;
 
-    void line(const Line& line) const;
     void line(const int x1, const int y1, const int x2, const int y2) const;
+    void line(const Point& p1, const Point& p2) const;
+    void line(const Line& line) const;
 
+    void rectFill(const int x, const int y, const int width,
+                  const int height) const;
     void rectFill(const Rect& rect) const;
-    void rectFill(const int x, const int y, const int width, const int height) const;
 
+    void rectOutline(const int x, const int y, const int width,
+                     const int height) const;
     void rectOutline(const Rect& rect) const;
-    void rectOutline(const int x, const int y, const int width, const int height) const;
+
+    void polyline(const std::vector<Point>& points) const;
 
 private:
     static RGB32 toRgb32(const Color& color);

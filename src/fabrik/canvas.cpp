@@ -8,6 +8,14 @@
 #include "mouse_click_event.hpp"
 #include "mouse_move_event.hpp"
 
+namespace colors {
+
+const Color clear{0, 0, 0};
+const Color arm{255, 0, 0};
+const Color arm_highlight{255, 255, 0};
+
+}
+
 Canvas::Canvas() : Component(), m_placing{true} {}
 
 Canvas::~Canvas() {}
@@ -46,18 +54,26 @@ void Canvas::onKeyPress(const KeyboardEvent* event) {
 void Canvas::update() {}
 
 void Canvas::render(const Renderer& renderer) {
-    renderer.clear(m_clearColor);
+    renderer.clear(colors::clear);
 
-    renderer.setColor(m_armColor);
-    Vec2* prev = nullptr;
-    for (Vec2& joint : m_joints) {
-        renderer.rectFill(
-            Rect(std::floor(joint.x()) - 5, std::floor(joint.y()) - 5, 10, 10));
-        if (prev != nullptr) {
-            renderer.line(Line(std::floor(prev->x()), std::floor(prev->y()),
-                               std::floor(joint.x()), std::floor(joint.y())));
-        }
-        prev = &joint;
+    renderer.setColor(colors::arm);
+
+    std::vector<Point> points;
+    points.reserve(m_joints.size());
+    for (const Vec2& joint : m_joints) {
+        points.push_back(Point{static_cast<int>(std::floor(joint.x())),
+                               static_cast<int>(std::floor(joint.y()))});
+    }
+    renderer.polyline(points);
+
+    for (const Point& point : points) {
+        Rect joint_rect = Rect(point.x() - 5, point.y() - 5, 10, 10);
+
+        renderer.setColor(colors::arm);
+        if (joint_rect.contains(m_mousePos))
+            renderer.setColor(colors::arm_highlight);
+
+        renderer.rectFill(joint_rect);
     }
 
     if (!m_joints.empty() && m_placing) {
