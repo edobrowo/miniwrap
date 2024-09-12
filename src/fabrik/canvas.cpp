@@ -1,5 +1,6 @@
 #include "canvas.hpp"
 
+#include <cmath>
 #include <iostream>
 
 #include "event_names.hpp"
@@ -50,12 +51,11 @@ void Canvas::render(const Renderer& renderer) {
     renderer.setColor(m_armColor);
     Vec2* prev = nullptr;
     for (Vec2& joint : m_joints) {
-        renderer.rectFill(Rect(static_cast<int>(joint.x()) - 5,
-                               static_cast<int>(joint.y()) - 5, 10, 10));
+        renderer.rectFill(
+            Rect(std::floor(joint.x()) - 5, std::floor(joint.y()) - 5, 10, 10));
         if (prev != nullptr) {
-            renderer.line(
-                Line(static_cast<int>(prev->x()), static_cast<int>(prev->y()),
-                     static_cast<int>(joint.x()), static_cast<int>(joint.y())));
+            renderer.line(Line(std::floor(prev->x()), std::floor(prev->y()),
+                               std::floor(joint.x()), std::floor(joint.y())));
         }
         prev = &joint;
     }
