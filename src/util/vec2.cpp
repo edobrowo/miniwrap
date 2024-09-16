@@ -3,107 +3,114 @@
 #include <cmath>
 #include <utility>
 
-Vec2::Vec2() : m_x{0.0}, m_y{0.0} {}
+Vec2::Vec2() {
+    m_components[0] = 0.0;
+    m_components[1] = 0.0;
+}
 
-Vec2::Vec2(const float x, const float y) : m_x{x}, m_y{y} {}
+Vec2::Vec2(const float x, const float y) {
+    m_components[0] = x;
+    m_components[1] = y;
+}
 
-Vec2::Vec2(const Vec2& other) : m_x{other.x()}, m_y{other.y()} {}
+Vec2::Vec2(const Vec2& other) {
+    m_components[0] = other.x();
+    m_components[1] = other.y();
+}
 
-Vec2::Vec2(Vec2&& other) noexcept : m_x{std::move(other.x())}, m_y{std::move(other.y())} {}
+Vec2::Vec2(const Point& p) {
+    m_components[0] = static_cast<float>(p.x());
+    m_components[1] = static_cast<float>(p.y());
+}
+
+Vec2::Vec2(Vec2&& other) noexcept {
+    m_components[0] = std::move(other.x());
+    m_components[1] = std::move(other.y());
+}
 
 Vec2 Vec2::operator=(const Vec2& other) {
-    m_x = other.x();
-    m_y = other.y();
+    m_components[0] = other.x();
+    m_components[1] = other.y();
     return *this;
 }
 
 Vec2 Vec2::operator=(Vec2&& other) noexcept {
-    m_x = std::move(other.x());
-    m_y = std::move(other.y());
+    m_components[0] = std::move(other.x());
+    m_components[1] = std::move(other.y());
     return *this;
 }
 
-float Vec2::x() const noexcept {
-    return m_x;
-}
+float& Vec2::operator[](const int index) { return m_components[index]; }
 
-float Vec2::y() const noexcept {
-    return m_y;
-}
+void Vec2::setX(const float x) noexcept { m_components[0] = x; }
+
+void Vec2::setY(const float y) noexcept { m_components[1] = y; }
 
 bool Vec2::operator==(const Vec2& rhs) {
-    return m_x == rhs.x() && m_y == rhs.y();
+    return x() == rhs.x() && y() == rhs.y();
 }
 
 Vec2& Vec2::operator+=(const Vec2& rhs) {
-    m_x += rhs.x();
-    m_y += rhs.y();
+    m_components[0] += rhs.x();
+    m_components[1] += rhs.y();
 
     return *this;
 }
 
 Vec2& Vec2::operator-=(const Vec2& rhs) {
-    m_x -= rhs.x();
-    m_y -= rhs.y();
+    m_components[0] -= rhs.x();
+    m_components[1] -= rhs.y();
 
     return *this;
 }
 
 Vec2& Vec2::operator*=(const float rhs) {
-    m_x *= rhs;
-    m_y *= rhs;
+    m_components[0] *= rhs;
+    m_components[1] *= rhs;
 
     return *this;
 }
 
 Vec2& Vec2::operator/=(const float rhs) {
-    m_x /= rhs;
-    m_y /= rhs;
+    m_components[0] /= rhs;
+    m_components[1] /= rhs;
 
     return *this;
 }
 
-Vec2 Vec2::operator-() const {
-    return Vec2{-m_x, -m_y};
-}
+Vec2 Vec2::operator-() const { return Vec2{-x(), -y()}; }
 
-Vec2 Vec2::operator+() const {
-    return Vec2{+m_x, +m_y};
-}
+Vec2 Vec2::operator+() const { return Vec2{+x(), +y()}; }
 
 Vec2& Vec2::operator*=(const Vec2& rhs) {
-    m_x *= rhs.x();
-    m_y *= rhs.y();
+    m_components[0] *= rhs.x();
+    m_components[1] *= rhs.y();
 
     return *this;
 }
 
 Vec2& Vec2::operator/=(const Vec2& rhs) {
-    m_x /= rhs.x();
-    m_y /= rhs.y();
+    m_components[0] /= rhs.x();
+    m_components[1] /= rhs.y();
 
     return *this;
 }
 
 float Vec2::dot(const Vec2& other) const noexcept {
-    return m_x * other.x() + m_y * other.y();
+    return x() * other.x() + y() * other.y();
 }
 
 bool Vec2::isOrthogonal(const Vec2& other) const noexcept {
     return dot(other) == 0;
 }
 
-float Vec2::norm() const noexcept {
-    return ::sqrt(dot(*this));
-}
+float Vec2::norm() const noexcept { return ::sqrt(dot(*this)); }
 
-float Vec2::length() const noexcept {
-    return norm();
-}
+float Vec2::length() const noexcept { return norm(); }
 
 Vec2 Vec2::makeUnit() const noexcept {
     float scalar = 1 / norm();
-    return Vec2{m_x * scalar, m_y * scalar};
+    return Vec2{x() * scalar, y() * scalar};
 }
 
 float Vec2::distance(const Vec2& other) const noexcept {

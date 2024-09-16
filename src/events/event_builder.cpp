@@ -11,7 +11,7 @@
 
 namespace {
 
-MouseMoveEvent* fromSdlMouseMotionEvent(const SDL_MouseMotionEvent* event) {
+MouseMoveEvent* from_sdl_mouse_motion_event(const SDL_MouseMotionEvent* event) {
     return new MouseMoveEvent{
         static_cast<int>(event->timestamp),
         event->x,
@@ -21,7 +21,7 @@ MouseMoveEvent* fromSdlMouseMotionEvent(const SDL_MouseMotionEvent* event) {
     };
 }
 
-MouseButton fromSdlButton(const Uint8 button) {
+MouseButton from_sdl_button(const Uint8 button) {
     switch (button) {
     case SDL_BUTTON_LEFT:
         return MouseButton::Left;
@@ -35,18 +35,19 @@ MouseButton fromSdlButton(const Uint8 button) {
     }
 }
 
-MouseClickEvent* fromSdlMouseButtonEvent(const SDL_MouseButtonEvent* event) {
+MouseClickEvent* from_sdl_mouse_button_event(
+    const SDL_MouseButtonEvent* event) {
     return new MouseClickEvent{
         static_cast<int>(event->timestamp),
         event->x,
         event->y,
-        fromSdlButton(event->button),
+        from_sdl_button(event->button),
         event->state == SDL_PRESSED,
         event->clicks,
     };
 }
 
-ScrollDirection fromSdlScrollDirection(const Uint32 direction) {
+ScrollDirection from_sdl_scroll_direction(const Uint32 direction) {
     switch (direction) {
     case SDL_MOUSEWHEEL_NORMAL:
         return ScrollDirection::Up;
@@ -57,18 +58,18 @@ ScrollDirection fromSdlScrollDirection(const Uint32 direction) {
     }
 }
 
-MouseScrollEvent* fromSdlMouseWheelEvent(const SDL_MouseWheelEvent* event) {
+MouseScrollEvent* from_sdl_mouse_wheel_event(const SDL_MouseWheelEvent* event) {
     return new MouseScrollEvent{
         static_cast<int>(event->timestamp),
         event->x,
         event->y,
-        fromSdlScrollDirection(event->direction),
+        from_sdl_scroll_direction(event->direction),
         event->preciseX,
         event->preciseY,
     };
 }
 
-const std::map<SDL_KeyCode, Keycode> keymap{
+const std::map<SDL_KeyCode, Keycode> sdl_keycode_to_keycode{
     {SDLK_UNKNOWN, Keycode::None},
 
     {SDLK_a, Keycode::A},
@@ -149,11 +150,12 @@ const std::map<SDL_KeyCode, Keycode> keymap{
     {SDLK_F12, Keycode::F12},
 };
 
-KeyboardEvent* fromSdlKeyboardEvent(const SDL_KeyboardEvent* event) {
+KeyboardEvent* from_sdl_keyboard_event(const SDL_KeyboardEvent* event) {
     SDL_KeyCode sdl_keycode = static_cast<SDL_KeyCode>(event->keysym.sym);
     Keycode keycode = Keycode::None;
-    if (keymap.find(sdl_keycode) != keymap.end()) {
-        keycode = keymap.at(sdl_keycode);
+    if (sdl_keycode_to_keycode.find(sdl_keycode) !=
+        sdl_keycode_to_keycode.end()) {
+        keycode = sdl_keycode_to_keycode.at(sdl_keycode);
     }
     return new KeyboardEvent{
         static_cast<int>(event->timestamp),
@@ -163,7 +165,7 @@ KeyboardEvent* fromSdlKeyboardEvent(const SDL_KeyboardEvent* event) {
     };
 }
 
-QuitEvent* fromSdlQuitEvent(const SDL_QuitEvent* event) {
+QuitEvent* from_sdl_quit_event(const SDL_QuitEvent* event) {
     return new QuitEvent{
         static_cast<int>(event->timestamp),
     };
@@ -174,17 +176,17 @@ QuitEvent* fromSdlQuitEvent(const SDL_QuitEvent* event) {
 Event* fromSdlEvent(const SDL_Event* event) {
     switch (event->type) {
     case SDL_MOUSEMOTION:
-        return fromSdlMouseMotionEvent(&event->motion);
+        return from_sdl_mouse_motion_event(&event->motion);
     case SDL_MOUSEBUTTONDOWN:
     case SDL_MOUSEBUTTONUP:
-        return fromSdlMouseButtonEvent(&event->button);
+        return from_sdl_mouse_button_event(&event->button);
     case SDL_MOUSEWHEEL:
-        return fromSdlMouseWheelEvent(&event->wheel);
+        return from_sdl_mouse_wheel_event(&event->wheel);
     case SDL_KEYDOWN:
     case SDL_KEYUP:
-        return fromSdlKeyboardEvent(&event->key);
+        return from_sdl_keyboard_event(&event->key);
     case SDL_QUIT:
-        return fromSdlQuitEvent(&event->quit);
+        return from_sdl_quit_event(&event->quit);
     default:
         // unimplemented
         return new Event{};

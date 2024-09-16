@@ -1,11 +1,13 @@
 #ifndef __CANVAS__
 #define __CANVAS__
 
+#include <map>
 #include <vector>
 
 #include "color.hpp"
 #include "component.hpp"
 #include "point.hpp"
+#include "rect.hpp"
 #include "vec2.hpp"
 
 class Canvas : public Component {
@@ -22,8 +24,11 @@ public:
 
 private:
     std::vector<Vec2> m_joints;
+    Vec2* m_target;
+
     Point m_mousePos;
     bool m_placing;
+    bool m_dragging;
 };
 
 #endif

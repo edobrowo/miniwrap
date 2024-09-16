@@ -22,6 +22,14 @@ bool MouseClickEvent::isReleased() const noexcept {
 
 MouseButton MouseClickEvent::button() const noexcept { return m_button; }
 
+bool MouseClickEvent::isLeftClick() const noexcept {
+    return isPressed() && button() == MouseButton::Left;
+}
+
+bool MouseClickEvent::isRightClick() const noexcept {
+    return isPressed() && button() == MouseButton::Right;
+}
+
 Point MouseClickEvent::pos() const noexcept { return m_position; }
 
 int MouseClickEvent::x() const noexcept { return m_position.x(); }

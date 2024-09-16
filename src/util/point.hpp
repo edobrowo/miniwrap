@@ -1,18 +1,25 @@
 #ifndef __UTIL_POINT__
 #define __UTIL_POINT__
 
+#include "vec2.hpp"
+
+class Vec2;
+
 class Point {
 public:
     Point();
     Point(const int x, const int y);
     Point(const Point& other);
+    explicit Point(const Vec2& vec);
     Point(Point&& other) noexcept;
 
     Point operator=(const Point& other);
     Point operator=(Point&& other);
 
-    int x() const noexcept;
-    int y() const noexcept;
+    int& operator[](const int index);
+
+    inline int x() const noexcept { return m_components[0]; }
+    inline int y() const noexcept { return m_components[1]; }
 
     void setX(const int x) noexcept;
     void setY(const int y) noexcept;
@@ -29,8 +36,7 @@ public:
     int distChebyshev(const Point& other) const noexcept;
 
 private:
-    int m_x;
-    int m_y;
+    int m_components[2];
 };
 
 #endif

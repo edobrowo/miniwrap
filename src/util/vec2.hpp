@@ -1,19 +1,29 @@
 #ifndef __UTIL_VEC2__
 #define __UTIL_VEC2__
 
+#include "point.hpp"
+
+class Point;
+
 class Vec2 {
 public:
     Vec2();
     Vec2(const float x, const float y);
     Vec2(const Vec2& other);
+    explicit Vec2(const Point& p);
     Vec2(Vec2&& other) noexcept;
 
     Vec2 operator=(const Vec2& other);
     Vec2 operator=(Vec2&& other) noexcept;
 
     // Component access
-    float x() const noexcept;
-    float y() const noexcept;
+    float& operator[](const int index);
+
+    inline float x() const noexcept { return m_components[0]; };
+    inline float y() const noexcept { return m_components[1]; };
+
+    void setX(const float x) noexcept;
+    void setY(const float y) noexcept;
 
     // Equality
     bool operator==(const Vec2& rhs);
@@ -32,13 +42,9 @@ public:
 
     // Scalar multiplication
     Vec2& operator*=(const float rhs);
-    friend Vec2 operator*(const float lhs, Vec2 rhs) {
-        return rhs *= lhs;
-    }
+    friend Vec2 operator*(const float lhs, Vec2 rhs) { return rhs *= lhs; }
     Vec2& operator/=(const float rhs);
-    friend Vec2 operator/(const float lhs, Vec2 rhs) {
-        return rhs /= lhs;
-    }
+    friend Vec2 operator/(const float lhs, Vec2 rhs) { return rhs /= lhs; }
     Vec2 operator-() const;
     Vec2 operator+() const;
 
@@ -77,8 +83,7 @@ public:
     Vec2 project(const Vec2& other) const noexcept;
 
 private:
-    float m_x;
-    float m_y;
+    float m_components[2];
 };
 
 #endif

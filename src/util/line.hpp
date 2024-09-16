@@ -13,10 +13,10 @@ public:
     Line operator=(const Line& other);
     Line operator=(Line&& other) noexcept;
 
-    int x1() const noexcept;
-    int y1() const noexcept;
-    int x2() const noexcept;
-    int y2() const noexcept;
+    inline int x1() const noexcept { return m_x1; }
+    inline int y1() const noexcept { return m_y1; }
+    inline int x2() const noexcept { return m_x2; }
+    inline int y2() const noexcept { return m_y2; }
 
 private:
     int m_x1;

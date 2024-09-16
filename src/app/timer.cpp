@@ -7,13 +7,9 @@ void Timer::start() {
     m_startTicks = SDL_GetTicks();
 }
 
-void Timer::stop() {
-    m_isRunning = false;
-}
+void Timer::stop() { m_isRunning = false; }
 
-void Timer::restart() {
-    start();
-}
+void Timer::restart() { start(); }
 
 Uint32 Timer::ticks() const {
     if (!m_isRunning) {
@@ -22,6 +18,4 @@ Uint32 Timer::ticks() const {
     return SDL_GetTicks() - m_startTicks;
 }
 
-bool Timer::isRunning() const {
-    return m_isRunning;
-}
+bool Timer::isRunning() const { return m_isRunning; }

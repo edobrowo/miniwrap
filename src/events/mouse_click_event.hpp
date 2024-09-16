@@ -18,6 +18,9 @@ public:
 
     MouseButton button() const noexcept;
 
+    bool isLeftClick() const noexcept;
+    bool isRightClick() const noexcept;
+
     Point pos() const noexcept;
     int x() const noexcept;
     int y() const noexcept;

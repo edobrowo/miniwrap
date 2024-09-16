@@ -16,19 +16,44 @@ const Color arm_highlight{255, 255, 0};
 
 }
 
-Canvas::Canvas() : Component(), m_placing{true} {}
+namespace {
+
+Rect build_joint_bounds(const Vec2& joint) {
+    Point p{joint};
+    return Rect{p.x() - 5, p.y() - 5, 10, 10};
+}
+
+}
+
+Canvas::Canvas()
+    : Component(), m_target{nullptr}, m_placing{true}, m_dragging{false} {}
 
 Canvas::~Canvas() {}
 
 void Canvas::onMouseClick(const MouseClickEvent* event) {
-    if (m_placing && event->isPressed() &&
-        event->button() == MouseButton::Left) {
+    for (Vec2& joint : m_joints) {
+        Rect joint_bounds = build_joint_bounds(joint);
+        if (joint_bounds.contains(event->pos())) {
+            m_dragging = true;
+            m_target = &joint;
+        }
+    }
+
+    if (m_placing && !m_dragging && event->isLeftClick()) {
         m_joints.push_back(Vec2(event->x(), event->y()));
+    }
+
+    if (event->isReleased()) {
+        m_dragging = false;
     }
 }
 
 void Canvas::onMouseMove(const MouseMoveEvent* event) {
     m_mousePos = event->pos();
+
+    if (m_dragging) {
+        *m_target = Vec2(event->pos());
+    }
 }
 
 void Canvas::onKeyPress(const KeyboardEvent* event) {
@@ -51,7 +76,9 @@ void Canvas::onKeyPress(const KeyboardEvent* event) {
     }
 }
 
-void Canvas::update() {}
+void Canvas::update() {
+    // FABRIK solver
+}
 
 void Canvas::render(const Renderer& renderer) {
     renderer.clear(colors::clear);
@@ -61,8 +88,7 @@ void Canvas::render(const Renderer& renderer) {
     std::vector<Point> points;
     points.reserve(m_joints.size());
     for (const Vec2& joint : m_joints) {
-        points.push_back(Point{static_cast<int>(std::floor(joint.x())),
-                               static_cast<int>(std::floor(joint.y()))});
+        points.emplace_back(joint);
     }
     renderer.polyline(points);
 
