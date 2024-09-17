@@ -3,11 +3,6 @@
 #include <cmath>
 #include <iostream>
 
-#include "event_names.hpp"
-#include "keyboard_event.hpp"
-#include "mouse_click_event.hpp"
-#include "mouse_move_event.hpp"
-
 namespace colors {
 
 const Color clear{0, 0, 0};
