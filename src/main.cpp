@@ -5,13 +5,13 @@
 #include "canvas.hpp"
 
 namespace {
-    struct AppSettings {
-        const char* title;
-        size_t width;
-        size_t height;
-    };
+struct AppSettings {
+    const char* title;
+    size_t width;
+    size_t height;
+};
 
-    constexpr AppSettings settings{"FABRIK", 640, 640};
+constexpr AppSettings settings{"EXAMPLE", 640, 640};
 }
 
 int main() {

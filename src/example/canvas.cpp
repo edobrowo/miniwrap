@@ -71,9 +71,7 @@ void Canvas::onKeyPress(const KeyboardEvent* event) {
     }
 }
 
-void Canvas::update() {
-    // FABRIK solver
-}
+void Canvas::update() {}
 
 void Canvas::render(const Renderer& renderer) {
     renderer.clear(colors::clear);
