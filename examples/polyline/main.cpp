@@ -11,7 +11,7 @@ struct AppSettings {
     size_t height;
 };
 
-constexpr AppSettings settings{"EXAMPLE", 640, 640};
+constexpr AppSettings settings{"Interactive Polyline", 640, 640};
 }
 
 int main() {

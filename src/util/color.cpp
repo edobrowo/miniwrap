@@ -1,67 +1,23 @@
 #include "color.hpp"
 
+#include "math.hpp"
+
 namespace {
 
-float unit_clamp(const float x) {
-    if (x < 0.0)
-        return 0.0;
-    else if (x > 1.0)
-        return 1.0;
-    return x;
-}
+u8 rgbf_to_rgb24(const f64 channel) { return math::unit_clamp(channel) * 255; }
 
-float unit_clamp(const int x) {
-    float y = static_cast<float>(x);
-    if (y < 0.0)
-        y = 0.0;
-    else if (y > 255.0)
-        return 255.0;
-    return y / 255.0;
-}
+f64 rgb24_to_rgbf(const u8 channel) { return static_cast<f64>(channel / 255); }
 
 }
 
-Color::Color(const float r, const float g, const float b) {
-    m_channels[0] = unit_clamp(r);
-    m_channels[1] = unit_clamp(g);
-    m_channels[2] = unit_clamp(b);
-    m_channels[3] = 1.0;
+RGBf::RGBf(const RGB24& rgb24) {
+    this->x = rgb24_to_rgbf(rgb24.r());
+    this->y = rgb24_to_rgbf(rgb24.g());
+    this->z = rgb24_to_rgbf(rgb24.b());
 }
 
-Color::Color(const float r, const float g, const float b, const float a) {
-    m_channels[0] = unit_clamp(r);
-    m_channels[1] = unit_clamp(g);
-    m_channels[2] = unit_clamp(b);
-    m_channels[3] = unit_clamp(a);
+RGB24::RGB24(const RGBf& rgbf) {
+    this->x = rgbf_to_rgb24(rgbf.r());
+    this->y = rgbf_to_rgb24(rgbf.g());
+    this->z = rgbf_to_rgb24(rgbf.b());
 }
-
-Color::Color(const int r, const int g, const int b) {
-    m_channels[0] = unit_clamp(r);
-    m_channels[1] = unit_clamp(g);
-    m_channels[2] = unit_clamp(b);
-    m_channels[3] = 1.0;
-}
-
-Color::Color(const int r, const int g, const int b, const int a) {
-    m_channels[0] = unit_clamp(r);
-    m_channels[1] = unit_clamp(g);
-    m_channels[2] = unit_clamp(b);
-    m_channels[3] = unit_clamp(a);
-}
-
-Color::Color(const Color& other) {
-    m_channels[0] = other.r();
-    m_channels[1] = other.g();
-    m_channels[2] = other.b();
-    m_channels[3] = other.a();
-}
-
-Color Color::operator=(const Color& other) {
-    m_channels[0] = other.r();
-    m_channels[1] = other.g();
-    m_channels[2] = other.b();
-    m_channels[3] = other.a();
-    return *this;
-}
-
-float& Color::operator[](const int index) { return m_channels[index]; }

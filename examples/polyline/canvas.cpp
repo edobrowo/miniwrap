@@ -4,9 +4,9 @@
 
 namespace colors {
 
-const Color clear{0, 0, 0};
-const Color arm{255, 0, 0};
-const Color arm_highlight{255, 255, 0};
+const Color clear(0.0, 0.0, 0.0);
+const Color arm(1.0, 0.0, 0.0);
+const Color arm_highlight(1.0, 1.0, 0.0);
 
 }
 

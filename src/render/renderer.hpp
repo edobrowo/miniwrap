@@ -20,13 +20,6 @@ public:
     }
 };
 
-struct RGB32 {
-    Uint8 r;
-    Uint8 g;
-    Uint8 b;
-    Uint8 a;
-};
-
 class Window;
 
 class Renderer {
@@ -57,8 +50,6 @@ public:
     void polyline(const std::vector<Point2I>& points) const;
 
 private:
-    static RGB32 toRgb32(const Color& color);
-
     std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> m_sdlRenderer;
     Size m_windowWidth;
     i32 m_windowHeight;

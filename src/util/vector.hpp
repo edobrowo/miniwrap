@@ -32,7 +32,7 @@ public:
 
     Length<N>::Type length() const { return std::sqrt(lengthSquared()); }
 
-    inline N dot(Vector2<N> other) const { return x * other.x + y * other.y; }
+    N dot(Vector2<N> other) const { return x * other.x + y * other.y; }
 };
 
 template <Numeric N>

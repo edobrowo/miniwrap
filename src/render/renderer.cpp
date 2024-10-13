@@ -25,13 +25,13 @@ void Renderer::init(std::weak_ptr<Window> win) {
 void Renderer::show() const { SDL_RenderPresent(m_sdlRenderer.get()); }
 
 void Renderer::setColor(const Color& color) const {
-    RGB32 rgb = toRgb32(color);
-    SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
+    RGB24 rgb(color);
+    SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r(), rgb.g(), rgb.b(), 1.0);
 }
 
 void Renderer::clear(const Color& color) const {
-    RGB32 rgb = toRgb32(color);
-    SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r, rgb.g, rgb.b, rgb.a);
+    RGB24 rgb(color);
+    SDL_SetRenderDrawColor(m_sdlRenderer.get(), rgb.r(), rgb.g(), rgb.b(), 1.0);
     SDL_RenderClear(m_sdlRenderer.get());
 }
 
@@ -68,13 +68,6 @@ void Renderer::rectOutline(const i32 x, const i32 y, const i32 width,
 
 void Renderer::rectOutline(const Rect2I& rect) const {
     rectOutline(rect.x, rect.y, rect.width, rect.height);
-}
-
-RGB32 Renderer::toRgb32(const Color& color) {
-    return RGB32{static_cast<Uint8>(color.r() * 255),
-                 static_cast<Uint8>(color.g() * 255),
-                 static_cast<Uint8>(color.b() * 255),
-                 static_cast<Uint8>(color.a() * 255)};
 }
 
 void Renderer::polyline(const std::vector<Point2I>& points) const {
