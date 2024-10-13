@@ -22,6 +22,9 @@ add_subdirectory(src/render)
 add_subdirectory(src/app)
 add_subdirectory(src/example)
 
+# Output directory
+set (EXECUTABLE_OUTPUT_PATH ${CMAKE_SOURCE_DIR}/bin)
+
 # Executable
 add_executable(main src/main.cpp)
 

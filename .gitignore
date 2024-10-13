@@ -1,8 +1,8 @@
-DS_Store
-.vscode
+DS_Store/
+.vscode/
 cmake_install.cmake
 CMakeFiles
 CMakeCache.txt
 Makefile
 bin/
-out/
+build/
