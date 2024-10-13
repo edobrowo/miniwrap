@@ -1,5 +1,4 @@
-#ifndef __RENDERER__
-#define __RENDERER__
+#pragma once
 
 #include <SDL2/SDL.h>
 
@@ -7,7 +6,7 @@
 #include <vector>
 
 #include "color.hpp"
-#include "line.hpp"
+#include "common.hpp"
 #include "point.hpp"
 #include "rect.hpp"
 #include "window.hpp"
@@ -41,29 +40,26 @@ public:
 
     void setColor(const Color& color) const;
 
-    void pixel(const int x, const int y) const;
-    void pixel(const Point& point) const;
+    void pixel(const i32 x, const i32 y) const;
+    void pixel(const Point2I& point) const;
 
-    void line(const int x1, const int y1, const int x2, const int y2) const;
-    void line(const Point& p1, const Point& p2) const;
-    void line(const Line& line) const;
+    void line(const i32 x1, const i32 y1, const i32 x2, const i32 y2) const;
+    void line(const Point2I& p1, const Point2I& p2) const;
 
-    void rectFill(const int x, const int y, const int width,
-                  const int height) const;
-    void rectFill(const Rect& rect) const;
+    void rectFill(const i32 x, const i32 y, const i32 width,
+                  const i32 height) const;
+    void rectFill(const Rect2I& rect) const;
 
-    void rectOutline(const int x, const int y, const int width,
-                     const int height) const;
-    void rectOutline(const Rect& rect) const;
+    void rectOutline(const i32 x, const i32 y, const i32 width,
+                     const i32 height) const;
+    void rectOutline(const Rect2I& rect) const;
 
-    void polyline(const std::vector<Point>& points) const;
+    void polyline(const std::vector<Point2I>& points) const;
 
 private:
     static RGB32 toRgb32(const Color& color);
 
     std::unique_ptr<SDL_Renderer, SDL_RendererDeleter> m_sdlRenderer;
-    int m_windowWidth;
-    int m_windowHeight;
+    Size m_windowWidth;
+    i32 m_windowHeight;
 };
-
-#endif

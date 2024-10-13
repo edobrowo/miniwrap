@@ -1,6 +1,4 @@
 #include "quit_event.hpp"
 
-QuitEvent::QuitEvent(const int timestamp)
-    : Event{Event::Kind::Quit, timestamp} {}
-
-QuitEvent::~QuitEvent() {}
+QuitEvent::QuitEvent(const u64 timestamp)
+    : Event(Event::Kind::Quit, timestamp) {}

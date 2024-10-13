@@ -1,5 +1,4 @@
-#ifndef __TIMER__
-#define __TIMER__
+#pragma once
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_timer.h>
@@ -18,5 +17,3 @@ private:
     Uint32 m_startTicks;
     bool m_isRunning;
 };
-
-#endif

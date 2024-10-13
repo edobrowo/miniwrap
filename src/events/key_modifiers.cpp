@@ -1,93 +1,93 @@
 #include "key_modifiers.hpp"
 
-KeyModifiers::KeyModifiers(const uint16_t mod_flags) : m_modifiers{mod_flags} {}
+KeyModifiers::KeyModifiers(const u16 mod_flags) : m_modifiers(mod_flags) {}
 
 KeyModifiers::~KeyModifiers() {}
 
-bool KeyModifiers::shift() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Shift);
+bool KeyModifiers::shift() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Shift);
 }
 
-bool KeyModifiers::shiftL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::ShiftL);
+bool KeyModifiers::shiftL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::ShiftL);
 }
 
-bool KeyModifiers::shiftR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::ShiftR);
+bool KeyModifiers::shiftR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::ShiftR);
 }
 
-bool KeyModifiers::ctrl() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Ctrl);
+bool KeyModifiers::ctrl() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Ctrl);
 }
 
-bool KeyModifiers::ctrlL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::CtrlL);
+bool KeyModifiers::ctrlL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::CtrlL);
 }
 
-bool KeyModifiers::ctrlR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::CtrlR);
+bool KeyModifiers::ctrlR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::CtrlR);
 }
 
-bool KeyModifiers::control() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Ctrl);
+bool KeyModifiers::control() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Ctrl);
 }
 
-bool KeyModifiers::controlL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::CtrlL);
+bool KeyModifiers::controlL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::CtrlL);
 }
 
-bool KeyModifiers::controlR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::CtrlR);
+bool KeyModifiers::controlR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::CtrlR);
 }
 
-bool KeyModifiers::alt() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Alt);
+bool KeyModifiers::alt() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Alt);
 }
 
-bool KeyModifiers::altL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::AltL);
+bool KeyModifiers::altL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::AltL);
 }
 
-bool KeyModifiers::altR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::AltR);
+bool KeyModifiers::altR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::AltR);
 }
 
-bool KeyModifiers::option() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Alt);
+bool KeyModifiers::option() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Alt);
 }
 
-bool KeyModifiers::optionL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::AltL);
+bool KeyModifiers::optionL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::AltL);
 }
 
-bool KeyModifiers::optionR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::AltR);
+bool KeyModifiers::optionR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::AltR);
 }
 
-bool KeyModifiers::gui() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Gui);
+bool KeyModifiers::gui() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Gui);
 }
 
-bool KeyModifiers::guiL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::GuiL);
+bool KeyModifiers::guiL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::GuiL);
 }
 
-bool KeyModifiers::guiR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::GuiR);
+bool KeyModifiers::guiR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::GuiR);
 }
 
-bool KeyModifiers::command() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::Gui);
+bool KeyModifiers::command() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::Gui);
 }
 
-bool KeyModifiers::commandL() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::GuiL);
+bool KeyModifiers::commandL() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::GuiL);
 }
 
-bool KeyModifiers::commandR() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::GuiR);
+bool KeyModifiers::commandR() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::GuiR);
 }
 
-bool KeyModifiers::capsLock() const noexcept {
-    return m_modifiers | static_cast<uint16_t>(KeyModifier::CapsLock);
+bool KeyModifiers::capsLock() const {
+    return m_modifiers | static_cast<u16>(KeyModifier::CapsLock);
 }

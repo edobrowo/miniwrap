@@ -14,9 +14,9 @@ void Renderer::init(std::weak_ptr<Window> win) {
         SDL_CreateRenderer(window_ref->inner(), -1, SDL_RENDERER_ACCELERATED);
 
     if (!ren) {
-        std::string message =
-            std::string("Failed to create SDL renderer: ") + SDL_GetError();
-        throw std::runtime_error(message);
+        StringBuffer sb;
+        format(sb, "Failed to create SDL renderer: {}", SDL_GetError());
+        throw std::runtime_error(sb.str());
     }
 
     m_sdlRenderer.reset(ren);
@@ -35,43 +35,39 @@ void Renderer::clear(const Color& color) const {
     SDL_RenderClear(m_sdlRenderer.get());
 }
 
-void Renderer::pixel(const int x, const int y) const {
+void Renderer::pixel(const i32 x, const i32 y) const {
     SDL_RenderDrawPoint(m_sdlRenderer.get(), x, y);
 }
 
-void Renderer::pixel(const Point& point) const { pixel(point.x(), point.y()); }
+void Renderer::pixel(const Point2I& point) const { pixel(point.x, point.y); }
 
-void Renderer::line(const int x1, const int y1, const int x2,
-                    const int y2) const {
+void Renderer::line(const i32 x1, const i32 y1, const i32 x2,
+                    const i32 y2) const {
     SDL_RenderDrawLine(m_sdlRenderer.get(), x1, y1, x2, y2);
 }
 
-void Renderer::line(const Point& p1, const Point& p2) const {
-    line(p1.x(), p1.y(), p2.x(), p2.y());
+void Renderer::line(const Point2I& p1, const Point2I& p2) const {
+    line(p1.x, p1.y, p2.x, p2.y);
 }
 
-void Renderer::line(const Line& drawline) const {
-    line(drawline.x1(), drawline.y1(), drawline.x2(), drawline.y2());
-}
-
-void Renderer::rectFill(const int x, const int y, const int width,
-                        const int height) const {
+void Renderer::rectFill(const i32 x, const i32 y, const i32 width,
+                        const i32 height) const {
     SDL_Rect fill_rect = {x, y, width, height};
     SDL_RenderFillRect(m_sdlRenderer.get(), &fill_rect);
 }
 
-void Renderer::rectFill(const Rect& rect) const {
-    rectFill(rect.x(), rect.y(), rect.width(), rect.height());
+void Renderer::rectFill(const Rect2I& rect) const {
+    rectFill(rect.x, rect.y, rect.width, rect.height);
 }
 
-void Renderer::rectOutline(const int x, const int y, const int width,
-                           const int height) const {
+void Renderer::rectOutline(const i32 x, const i32 y, const i32 width,
+                           const i32 height) const {
     SDL_Rect outline_rect = {x, y, width, height};
     SDL_RenderDrawRect(m_sdlRenderer.get(), &outline_rect);
 }
 
-void Renderer::rectOutline(const Rect& rect) const {
-    rectOutline(rect.x(), rect.y(), rect.width(), rect.height());
+void Renderer::rectOutline(const Rect2I& rect) const {
+    rectOutline(rect.x, rect.y, rect.width, rect.height);
 }
 
 RGB32 Renderer::toRgb32(const Color& color) {
@@ -81,7 +77,7 @@ RGB32 Renderer::toRgb32(const Color& color) {
                  static_cast<Uint8>(color.a() * 255)};
 }
 
-void Renderer::polyline(const std::vector<Point>& points) const {
+void Renderer::polyline(const std::vector<Point2I>& points) const {
     if (points.size() <= 1)
         return;
 

@@ -1,7 +1,5 @@
 #include "color.hpp"
 
-#include <utility>
-
 namespace {
 
 float unit_clamp(const float x) {
@@ -21,13 +19,6 @@ float unit_clamp(const int x) {
     return y / 255.0;
 }
 
-}
-
-Color::Color() {
-    m_channels[0] = 0.0;
-    m_channels[1] = 0.0;
-    m_channels[2] = 0.0;
-    m_channels[3] = 1.0;
 }
 
 Color::Color(const float r, const float g, const float b) {
@@ -65,26 +56,11 @@ Color::Color(const Color& other) {
     m_channels[3] = other.a();
 }
 
-Color::Color(Color&& other) noexcept {
-    m_channels[0] = std::move(other.r());
-    m_channels[1] = std::move(other.g());
-    m_channels[2] = std::move(other.b());
-    m_channels[3] = std::move(other.a());
-}
-
 Color Color::operator=(const Color& other) {
     m_channels[0] = other.r();
     m_channels[1] = other.g();
     m_channels[2] = other.b();
     m_channels[3] = other.a();
-    return *this;
-}
-
-Color Color::operator=(Color&& other) noexcept {
-    m_channels[0] = std::move(other.r());
-    m_channels[1] = std::move(other.g());
-    m_channels[2] = std::move(other.b());
-    m_channels[3] = std::move(other.a());
     return *this;
 }
 

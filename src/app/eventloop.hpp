@@ -1,5 +1,4 @@
-#ifndef __EVENT_LOOP__
-#define __EVENT_LOOP__
+#pragma once
 
 class Application;
 
@@ -15,5 +14,3 @@ private:
 
     bool m_running;
 };
-
-#endif

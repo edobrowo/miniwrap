@@ -1,5 +1,4 @@
-#ifndef __EVENT_NAMES__
-#define __EVENT_NAMES__
+#pragma once
 
 enum class MouseButton {
     Left = 0,
@@ -134,5 +133,3 @@ enum class KeyModifier {
     CommandR = GuiR,
     Command = Gui,
 };
-
-#endif

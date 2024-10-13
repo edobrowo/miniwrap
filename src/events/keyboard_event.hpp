@@ -1,27 +1,19 @@
-#ifndef __KEYBOARD_EVENT__
-#define __KEYBOARD_EVENT__
+#pragma once
 
+#include "common.hpp"
 #include "event.hpp"
 #include "event_names.hpp"
 #include "key_modifiers.hpp"
 
 class KeyboardEvent : public Event {
 public:
-    KeyboardEvent(const int timestamp, const Keycode keycode,
-                  const bool is_pressed, const uint16_t mod_flags);
-    ~KeyboardEvent();
+    Keycode keycode;
+    KeyState state;
+    KeyModifiers modifiers;
 
-    Keycode keycode() const noexcept;
+    KeyboardEvent(const u64 timestamp, const Keycode keycode,
+                  const bool is_pressed, const u16 mod_flags);
 
-    bool isPressed() const noexcept;
-    bool isReleased() const noexcept;
-
-    KeyModifiers modifiers() const noexcept;
-
-private:
-    Keycode m_keycode;
-    KeyState m_state;
-    KeyModifiers m_modifiers;
+    bool isPressed() const;
+    bool isReleased() const;
 };
-
-#endif

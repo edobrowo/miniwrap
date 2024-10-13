@@ -2,6 +2,7 @@
 
 #include <map>
 
+#include "common.hpp"
 #include "event_names.hpp"
 #include "keyboard_event.hpp"
 #include "mouse_click_event.hpp"
@@ -13,7 +14,7 @@ namespace {
 
 MouseMoveEvent* from_sdl_mouse_motion_event(const SDL_MouseMotionEvent* event) {
     return new MouseMoveEvent{
-        static_cast<int>(event->timestamp),
+        static_cast<u64>(event->timestamp),
         event->x,
         event->y,
         event->xrel,
@@ -30,15 +31,14 @@ MouseButton from_sdl_button(const Uint8 button) {
     case SDL_BUTTON_MIDDLE:
         return MouseButton::Middle;
     default:
-        // unimplemented
-        return MouseButton::Left;
+        unimplemented;
     }
 }
 
 MouseClickEvent* from_sdl_mouse_button_event(
     const SDL_MouseButtonEvent* event) {
     return new MouseClickEvent{
-        static_cast<int>(event->timestamp),
+        static_cast<u64>(event->timestamp),
         event->x,
         event->y,
         from_sdl_button(event->button),
@@ -60,7 +60,7 @@ ScrollDirection from_sdl_scroll_direction(const Uint32 direction) {
 
 MouseScrollEvent* from_sdl_mouse_wheel_event(const SDL_MouseWheelEvent* event) {
     return new MouseScrollEvent{
-        static_cast<int>(event->timestamp),
+        static_cast<u64>(event->timestamp),
         event->x,
         event->y,
         from_sdl_scroll_direction(event->direction),
@@ -158,7 +158,7 @@ KeyboardEvent* from_sdl_keyboard_event(const SDL_KeyboardEvent* event) {
         keycode = sdl_keycode_to_keycode.at(sdl_keycode);
     }
     return new KeyboardEvent{
-        static_cast<int>(event->timestamp),
+        static_cast<u64>(event->timestamp),
         keycode,
         event->state == SDL_PRESSED,
         static_cast<uint16_t>(event->keysym.mod),
@@ -167,7 +167,7 @@ KeyboardEvent* from_sdl_keyboard_event(const SDL_KeyboardEvent* event) {
 
 QuitEvent* from_sdl_quit_event(const SDL_QuitEvent* event) {
     return new QuitEvent{
-        static_cast<int>(event->timestamp),
+        static_cast<u64>(event->timestamp),
     };
 }
 
@@ -188,7 +188,7 @@ Event* fromSdlEvent(const SDL_Event* event) {
     case SDL_QUIT:
         return from_sdl_quit_event(&event->quit);
     default:
-        // unimplemented
+        TODO("unimplemented")
         return new Event{};
     }
 }

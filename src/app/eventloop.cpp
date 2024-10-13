@@ -7,7 +7,7 @@
 #include "application.hpp"
 #include "event_builder.hpp"
 
-EventLoop::EventLoop() : m_running{false} {}
+EventLoop::EventLoop() : m_running(false) {}
 
 void EventLoop::start(Application& app) {
     m_running = true;

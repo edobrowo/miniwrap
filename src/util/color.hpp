@@ -1,18 +1,14 @@
-#ifndef __UTIL_COLOR__
-#define __UTIL_COLOR__
+#pragma once
 
 class Color {
 public:
-    Color();
+    Color() = default;
     Color(const float r, const float g, const float b);
     Color(const float r, const float g, const float b, const float a);
     Color(const int r, const int g, const int b);
     Color(const int r, const int g, const int b, const int a);
     Color(const Color& other);
-    Color(Color&& other) noexcept;
-
     Color operator=(const Color& other);
-    Color operator=(Color&& other) noexcept;
 
     float& operator[](const int index);
 
@@ -25,5 +21,3 @@ public:
 private:
     float m_channels[4];
 };
-
-#endif

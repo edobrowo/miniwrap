@@ -1,5 +1,4 @@
-#ifndef __COMPONENT__
-#define __COMPONENT__
+#pragma once
 
 #include "event.hpp"
 #include "event_names.hpp"
@@ -33,5 +32,3 @@ protected:
 
     bool m_running;
 };
-
-#endif

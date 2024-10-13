@@ -1,6 +1,6 @@
 #include "component.hpp"
 
-Component::Component() : m_running{true} {}
+Component::Component() : m_running(true) {}
 
 Component::~Component() {}
 
@@ -23,7 +23,7 @@ void Component::render(const Renderer& renderer) {}
 bool Component::isRunning() { return m_running; }
 
 void Component::eventMultiplex(const Event* event) {
-    switch (event->kind()) {
+    switch (event->kind) {
     case Event::Kind::MouseClick: {
         const MouseClickEvent* click_event =
             static_cast<const MouseClickEvent*>(event);

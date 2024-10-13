@@ -6,20 +6,20 @@
 
 #include "event_builder.hpp"
 
-Application::Application(const std::string& title, const size_t window_width,
-                         const size_t window_height)
-    : m_mainWindow{title, window_width, window_height},
-      m_loop{},
-      m_renderer{} {}
+Application::Application(const std::string& title, const u32 window_width,
+                         const u32 window_height)
+    : m_mainWindow(title, window_width, window_height),
+      m_loop(),
+      m_renderer() {}
 
 Application::~Application() { SDL_Quit(); }
 
 void Application::init() {
-    int err = SDL_InitSubSystem(SDL_INIT_VIDEO);
+    i32 err = SDL_InitSubSystem(SDL_INIT_VIDEO);
     if (err != 0) {
-        std::string message =
-            std::string("Failed to update SDL window") + SDL_GetError();
-        throw std::runtime_error(message);
+        StringBuffer sb;
+        format(sb, "Failed to initialize SDL subsystem: {}", SDL_GetError());
+        throw std::runtime_error(sb.str());
     }
 
     m_mainWindow.init();

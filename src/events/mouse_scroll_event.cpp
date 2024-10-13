@@ -1,27 +1,15 @@
 #include "mouse_scroll_event.hpp"
 
-MouseScrollEvent::MouseScrollEvent(const int timestamp, const int x,
-                                   const int y, const ScrollDirection direction,
-                                   const float scroll_horizontal,
-                                   const float scroll_vertical)
-    : Event{Event::Kind::MouseScroll, timestamp},
-      m_position{Point{x, y}},
-      m_direction{direction},
-      m_horizontal{scroll_horizontal},
-      m_vertical{scroll_vertical} {}
+MouseScrollEvent::MouseScrollEvent(const u64 timestamp, const i32 x,
+                                   const i32 y, const ScrollDirection direction,
+                                   const f64 scroll_horizontal,
+                                   const f64 scroll_vertical)
+    : Event(Event::Kind::MouseScroll, timestamp),
+      pos(x, y),
+      direction(direction),
+      horizontal(scroll_horizontal),
+      vertical(scroll_vertical) {}
 
-MouseScrollEvent::~MouseScrollEvent() {}
+i32 MouseScrollEvent::x() const { return pos.x; }
 
-Point MouseScrollEvent::pos() const noexcept { return m_position; }
-
-int MouseScrollEvent::x() const noexcept { return m_position.x(); }
-
-int MouseScrollEvent::y() const noexcept { return m_position.y(); }
-
-ScrollDirection MouseScrollEvent::direction() const noexcept {
-    return m_direction;
-}
-
-float MouseScrollEvent::horizontal() const noexcept { return m_horizontal; }
-
-float MouseScrollEvent::vertical() const noexcept { return m_vertical; }
+i32 MouseScrollEvent::y() const { return pos.y; }

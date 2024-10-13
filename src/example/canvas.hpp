@@ -1,5 +1,4 @@
-#ifndef __CANVAS__
-#define __CANVAS__
+#pragma once
 
 #include <map>
 #include <vector>
@@ -8,7 +7,7 @@
 #include "component.hpp"
 #include "point.hpp"
 #include "rect.hpp"
-#include "vec2.hpp"
+#include "vector.hpp"
 
 class Canvas : public Component {
 public:
@@ -23,12 +22,10 @@ public:
     void render(const Renderer& renderer) override;
 
 private:
-    std::vector<Vec2> m_joints;
-    Vec2* m_target;
+    std::vector<Vector2D> m_joints;
+    Vector2D* m_target;
 
-    Point m_mousePos;
+    Point2I m_mousePos;
     bool m_placing;
     bool m_dragging;
 };
-
-#endif

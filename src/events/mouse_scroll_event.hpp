@@ -1,32 +1,21 @@
-#ifndef __MOUSE_SCROLL_EVENT__
-#define __MOUSE_SCROLL_EVENT__
+#pragma once
 
+#include "common.hpp"
 #include "event.hpp"
 #include "event_names.hpp"
 #include "point.hpp"
 
 class MouseScrollEvent : public Event {
 public:
-    MouseScrollEvent(const int timestamp, const int x, const int y,
+    Point2I pos;
+    ScrollDirection direction;
+    float horizontal;
+    float vertical;
+
+    MouseScrollEvent(const u64 timestamp, const i32 x, const i32 y,
                      const ScrollDirection direction,
-                     const float scroll_horizontal,
-                     const float scroll_vertical);
-    ~MouseScrollEvent();
+                     const f64 scroll_horizontal, const f64 scroll_vertical);
 
-    Point pos() const noexcept;
-    int x() const noexcept;
-    int y() const noexcept;
-
-    ScrollDirection direction() const noexcept;
-
-    float horizontal() const noexcept;
-    float vertical() const noexcept;
-
-private:
-    Point m_position;
-    ScrollDirection m_direction;
-    float m_horizontal;
-    float m_vertical;
+    i32 x() const;
+    i32 y() const;
 };
-
-#endif

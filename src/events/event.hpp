@@ -1,5 +1,6 @@
-#ifndef __EVENT__
-#define __EVENT__
+#pragma once
+
+#include "common.hpp"
 
 class Event {
 public:
@@ -15,16 +16,10 @@ public:
         Quit = 300,
     };
 
+    Kind kind;
+    u64 timestamp;
+
     Event();
-    Event(const Kind kind, const int timestamp);
+    Event(const Kind kind, const u64 timestamp);
     virtual ~Event();
-
-    virtual Kind kind() const noexcept;
-    int timestamp() const noexcept;
-
-private:
-    Kind m_kind;
-    int m_timestamp;
 };
-
-#endif

@@ -1,12 +1,13 @@
-#ifndef __APPLICATION__
-#define __APPLICATION__
+#pragma once
 
 #include <memory>
 #include <vector>
 
+#include "common.hpp"
 #include "component.hpp"
 #include "event.hpp"
 #include "eventloop.hpp"
+#include "format.hpp"
 #include "renderer.hpp"
 #include "window.hpp"
 
@@ -14,8 +15,8 @@ class Application {
 public:
     using ComponentPtr = std::unique_ptr<Component>;
 
-    Application(const std::string& title, const size_t window_width,
-                const size_t window_height);
+    Application(const std::string& title, const u32 window_width,
+                const u32 window_height);
     ~Application();
 
     void init();
@@ -38,5 +39,3 @@ private:
 
     std::vector<ComponentPtr> m_components;
 };
-
-#endif

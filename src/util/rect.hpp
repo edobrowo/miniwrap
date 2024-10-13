@@ -1,46 +1,72 @@
-#ifndef __UTIL_RECT__
-#define __UTIL_RECT__
+#pragma once
 
+#include "common.hpp"
+#include "format.hpp"
 #include "point.hpp"
-#include "vec2.hpp"
+#include "vector.hpp"
 
-class Rect {
+template <Numeric N>
+class Rect2 {
 public:
-    Rect(const int x, const int y, const int width, const int height);
-    Rect(const int width, const int height);
-    Rect(const Rect& other);
-    Rect(Rect&& other) noexcept;
+    N x;
+    N y;
+    N width;
+    N height;
 
-    Rect operator=(const Rect& other);
-    Rect operator=(Rect&& other) noexcept;
+    Rect2(const N x, const N y, const N width, const N height)
+        : x{x}, y{y}, width{width}, height{height} {}
 
-    inline int x() const noexcept { return m_x; }
-    inline int y() const noexcept { return m_y; }
-    inline int width() const noexcept { return m_width; }
-    inline int height() const noexcept { return m_height; }
+    template <Numeric M>
+    Rect2(const Rect2<M>& other)
+        : x{other.x}, y{other.y}, width{other.width}, height{other.height} {}
 
-    inline int top() const noexcept { return m_y; }
-    inline int bottom() const noexcept { return m_y + m_height; }
-    inline int left() const noexcept { return m_x; }
-    inline int right() const noexcept { return m_x + m_width; }
+    template <Numeric M>
+    Rect2<N> operator=(const Rect2<M>& other) {
+        x = other.x;
+        y = other.y;
+        width = other.width;
+        height = other.height;
+        return *this;
+    }
 
-    Point center() const noexcept;
+    N top() const { return y; }
+    N bottom() const { return y + height; }
+    N left() const { return x; }
+    N right() const { return x + width; }
 
-    bool contains(const int x, const int y) const noexcept;
-    bool contains(const Point& point) const noexcept;
-    bool contains(const Vec2& vec) const noexcept;
+    Point2<N> center() const { return {x + width / 2, y + height / 2}; }
 
-    bool surrounds(const int x, const int y) const noexcept;
-    bool surrounds(const Point& point) const noexcept;
-    bool surrounds(const Vec2& vec) const noexcept;
+    bool contains(const N xp, const N yp) const {
+        return left() <= xp && xp <= right() && top() <= yp && yp <= bottom();
+    }
+    bool contains(const Point2<N>& point) const {
+        return contains(point.x, point.y);
+    }
+    bool contains(const Vector2<N>& vec) const {
+        return contains(vec.x, vec.y);
+    }
 
-    Rect transpose() const noexcept;
+    bool surrounds(const N xp, const N yp) const {
+        return left() < xp && xp < right() && top() < yp && yp < bottom();
+    }
+    bool surrounds(const Point2<N>& point) const {
+        return surrounds(point.x, point.y);
+    }
+    bool surrounds(const Vector2<N>& vec) const {
+        return surrounds(vec.x, vec.y);
+    }
 
-private:
-    int m_x;
-    int m_y;
-    int m_width;
-    int m_height;
+    Rect2<N> transpose() const;
 };
 
-#endif
+using Rect2D = Rect2<f64>;
+using Rect2I = Rect2<i32>;
+
+template <Numeric N>
+    requires FormatWritable<N>
+struct FormatWriter<Rect2<N>> {
+    static void write(const Rect2<N>& value, StringBuffer& sb) {
+        format(sb, "{{x={},y={},width={},height={}}}", value.x, value.y,
+               value.width, value.height);
+    }
+};

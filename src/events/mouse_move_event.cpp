@@ -1,21 +1,13 @@
 #include "mouse_move_event.hpp"
 
-MouseMoveEvent::MouseMoveEvent(const int timestamp, const int x, const int y,
-                               const int rel_x, const int rel_y)
-    : Event{Event::Kind::MouseMove, timestamp},
-      m_position{Point{x, y}},
-      m_relative{Point{rel_x, rel_y}} {}
+MouseMoveEvent::MouseMoveEvent(const u64 timestamp, const i32 x, const i32 y,
+                               const i32 rel_x, const i32 rel_y)
+    : Event(Event::Kind::MouseMove, timestamp), pos(x, y), rel(rel_x, rel_y) {}
 
-MouseMoveEvent::~MouseMoveEvent() {}
+int MouseMoveEvent::x() const { return pos.x; }
 
-Point MouseMoveEvent::pos() const noexcept { return m_position; }
+int MouseMoveEvent::y() const { return pos.y; }
 
-int MouseMoveEvent::x() const noexcept { return m_position.x(); }
+int MouseMoveEvent::xrel() const { return rel.x; }
 
-int MouseMoveEvent::y() const noexcept { return m_position.y(); }
-
-Point MouseMoveEvent::relative() const noexcept { return m_relative; }
-
-int MouseMoveEvent::xrel() const noexcept { return m_relative.x(); }
-
-int MouseMoveEvent::yrel() const noexcept { return m_relative.y(); }
+int MouseMoveEvent::yrel() const { return rel.y; }

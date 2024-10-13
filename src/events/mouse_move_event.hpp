@@ -1,26 +1,19 @@
-#ifndef __MOUSE_MOVE_EVENT__
-#define __MOUSE_MOVE_EVENT__
+#pragma once
 
+#include "common.hpp"
 #include "event.hpp"
 #include "point.hpp"
 
 class MouseMoveEvent : public Event {
 public:
-    MouseMoveEvent(const int timestamp, const int x, const int y,
-                   const int rel_x, const int rel_y);
-    ~MouseMoveEvent();
+    Point2I pos;
+    Point2I rel;
 
-    Point pos() const noexcept;
-    int x() const noexcept;
-    int y() const noexcept;
+    MouseMoveEvent(const u64 timestamp, const i32 x, const i32 y,
+                   const i32 rel_x, const i32 rel_y);
 
-    Point relative() const noexcept;
-    int xrel() const noexcept;
-    int yrel() const noexcept;
-
-private:
-    Point m_position;
-    Point m_relative;
+    i32 x() const;
+    i32 y() const;
+    i32 xrel() const;
+    i32 yrel() const;
 };
-
-#endif

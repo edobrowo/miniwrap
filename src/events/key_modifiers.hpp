@@ -1,44 +1,42 @@
-#ifndef __KEY_MODIFIERS__
-#define __KEY_MODIFIERS__
+#pragma once
 
 #include <stdlib.h>
 
+#include "common.hpp"
 #include "event_names.hpp"
 
 class KeyModifiers {
 public:
-    KeyModifiers(const uint16_t mod_flags);
+    KeyModifiers(const u16 mod_flags);
     ~KeyModifiers();
 
-    bool shift() const noexcept;
-    bool shiftL() const noexcept;
-    bool shiftR() const noexcept;
+    bool shift() const;
+    bool shiftL() const;
+    bool shiftR() const;
 
-    bool ctrl() const noexcept;
-    bool ctrlL() const noexcept;
-    bool ctrlR() const noexcept;
-    bool control() const noexcept;
-    bool controlL() const noexcept;
-    bool controlR() const noexcept;
+    bool ctrl() const;
+    bool ctrlL() const;
+    bool ctrlR() const;
+    bool control() const;
+    bool controlL() const;
+    bool controlR() const;
 
-    bool alt() const noexcept;
-    bool altL() const noexcept;
-    bool altR() const noexcept;
-    bool option() const noexcept;
-    bool optionL() const noexcept;
-    bool optionR() const noexcept;
+    bool alt() const;
+    bool altL() const;
+    bool altR() const;
+    bool option() const;
+    bool optionL() const;
+    bool optionR() const;
 
-    bool gui() const noexcept;
-    bool guiL() const noexcept;
-    bool guiR() const noexcept;
-    bool command() const noexcept;
-    bool commandL() const noexcept;
-    bool commandR() const noexcept;
+    bool gui() const;
+    bool guiL() const;
+    bool guiR() const;
+    bool command() const;
+    bool commandL() const;
+    bool commandR() const;
 
-    bool capsLock() const noexcept;
+    bool capsLock() const;
 
 private:
-    uint16_t m_modifiers;
+    u16 m_modifiers;
 };
-
-#endif

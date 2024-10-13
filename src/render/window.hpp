@@ -1,10 +1,11 @@
-#ifndef __WINDOW__
-#define __WINDOW__
+#pragma once
 
 #include <SDL2/SDL.h>
 
 #include <memory>
 #include <string>
+
+#include "common.hpp"
 
 class SDL_WindowDeleter {
 public:
@@ -18,25 +19,23 @@ public:
 
 class Window {
 public:
-    Window(const size_t width, const size_t height);
-    Window(const std::string& title, const size_t width, const size_t height);
-    ~Window();
+    Window(const u32 width, const u32 height);
+    Window(const std::string& title, const u32 width, const u32 height);
+    ~Window() = default;
 
-    void init(uint32_t flags);
+    void init(u32 flags);
     void init();
 
     SDL_Window* inner() const;
     SDL_Surface* surface() const;
 
-    std::string title() const noexcept;
-    size_t width() const noexcept;
-    size_t height() const noexcept;
+    const std::string& title() const;
+    u32 width() const;
+    u32 height() const;
 
 private:
     std::string m_title;
-    size_t m_width;
-    size_t m_height;
+    u32 m_width;
+    u32 m_height;
     std::unique_ptr<SDL_Window, SDL_WindowDeleter> m_sdlWindow;
 };
-
-#endif
