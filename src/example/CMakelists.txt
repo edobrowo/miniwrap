@@ -1,4 +1,0 @@
-file(GLOB EXAMPLE_SRC "*.cpp")
-add_library(example STATIC ${EXAMPLE_SRC})
-target_include_directories(example PUBLIC ${CMAKE_SOURCE_DIR}/src/example)
-target_link_libraries(example PUBLIC app event util render SDL2)

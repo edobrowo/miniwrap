@@ -15,14 +15,15 @@ public:
     virtual ~Component() = 0;
 
     virtual void event(const Event* event);
-    virtual void onMouseClick(const MouseClickEvent* event);
-    virtual void onMouseMove(const MouseMoveEvent* event);
-    virtual void onMouseScroll(const MouseScrollEvent* event);
-    virtual void onKeyPress(const KeyboardEvent* event);
+
+    virtual void onMouseClick(const MouseClickEvent* event) {}
+    virtual void onMouseMove(const MouseMoveEvent* event) {}
+    virtual void onMouseScroll(const MouseScrollEvent* event) {}
+    virtual void onKeyPress(const KeyboardEvent* event) {}
     virtual void onQuit(const QuitEvent* event);
 
-    virtual void update();
-    virtual void render(const Renderer& renderer);
+    virtual void update() {}
+    virtual void render(const Renderer& renderer) {}
 
     bool isRunning();
 

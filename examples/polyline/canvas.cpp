@@ -1,7 +1,6 @@
 #include "canvas.hpp"
 
 #include <cmath>
-#include <iostream>
 
 namespace colors {
 

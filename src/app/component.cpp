@@ -6,19 +6,7 @@ Component::~Component() {}
 
 void Component::event(const Event* event) { eventMultiplex(event); }
 
-void Component::onMouseClick(const MouseClickEvent* event) {}
-
-void Component::onMouseMove(const MouseMoveEvent* event) {}
-
-void Component::onMouseScroll(const MouseScrollEvent* event) {}
-
-void Component::onKeyPress(const KeyboardEvent* event) {}
-
 void Component::onQuit(const QuitEvent* event) { quit(); }
-
-void Component::update() {}
-
-void Component::render(const Renderer& renderer) {}
 
 bool Component::isRunning() { return m_running; }
 

@@ -1,0 +1,7 @@
+file(GLOB EXAMPLES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/*)
+
+foreach(EXAMPLE ${EXAMPLES})
+    if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${EXAMPLE})
+        add_subdirectory(${EXAMPLE})
+    endif()
+endforeach()
