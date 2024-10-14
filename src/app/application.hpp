@@ -8,6 +8,7 @@
 #include "event.hpp"
 #include "eventloop.hpp"
 #include "format.hpp"
+#include "frameinfo.hpp"
 #include "renderer.hpp"
 #include "window.hpp"
 
@@ -27,10 +28,10 @@ public:
     void start(const u64 fps);
 
     void event(const Event* event);
-    void tick();
+    void tick(const FrameInfo& info);
 
 private:
-    void update();
+    void update(const FrameInfo& info);
     void render();
 
     void quit();

@@ -2,15 +2,20 @@
 #include <memory>
 
 #include "application.hpp"
+#include "math.hpp"
 
 class Canvas : public Component {
 public:
-    Canvas() = default;
-    ~Canvas() = default;
+    static constexpr i32 radius = 100;
+    i32 y_offset = 0;
+
+    void update(const FrameInfo& info) override {
+        y_offset =
+            50.0 * std::sin(static_cast<f64>(info.frame) / 180.0 * math::Pi);
+    }
 
     void render(const Renderer& renderer) override {
-        Point2I center(320, 320);
-        i32 radius = 100;
+        Point2I center(320, 320 + y_offset);
 
         renderer.clear(Color(0.0, 0.0, 0.0));
         renderer.setColor(Color(1.0, 0.0, 0.0));

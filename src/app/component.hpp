@@ -2,6 +2,7 @@
 
 #include "event.hpp"
 #include "event_names.hpp"
+#include "frameinfo.hpp"
 #include "keyboard_event.hpp"
 #include "mouse_click_event.hpp"
 #include "mouse_move_event.hpp"
@@ -22,7 +23,7 @@ public:
     virtual void onKeyPress(const KeyboardEvent* event) {}
     virtual void onQuit(const QuitEvent* event);
 
-    virtual void update() {}
+    virtual void update(const FrameInfo& info) {}
     virtual void render(const Renderer& renderer) {}
 
     bool isRunning();

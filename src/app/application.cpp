@@ -43,14 +43,14 @@ void Application::event(const Event* event) {
     }
 }
 
-void Application::tick() {
-    update();
+void Application::tick(const FrameInfo& info) {
+    update(info);
     render();
 }
 
-void Application::update() {
+void Application::update(const FrameInfo& info) {
     for (ComponentPtr& cptr : m_components) {
-        cptr->update();
+        cptr->update(info);
         if (!cptr->isRunning()) {
             quit();
         }
