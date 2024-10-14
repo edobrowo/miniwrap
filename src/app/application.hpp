@@ -11,6 +11,8 @@
 #include "renderer.hpp"
 #include "window.hpp"
 
+constexpr u64 FPS_MAX = 1000;
+
 class Application {
 public:
     using ComponentPtr = std::unique_ptr<Component>;
@@ -22,7 +24,7 @@ public:
     void init();
 
     void addComponent(ComponentPtr widget);
-    void start();
+    void start(const u64 fps);
 
     void event(const Event* event);
     void tick();

@@ -1,7 +1,6 @@
 #pragma once
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_timer.h>
+#include "common.hpp"
 
 class Timer {
 public:
@@ -10,10 +9,10 @@ public:
     void start();
     void stop();
     void restart();
-    Uint32 ticks() const;
+    u64 elapsed() const;
     bool isRunning() const;
 
 private:
-    Uint32 m_startTicks;
+    u64 m_startMs;
     bool m_isRunning;
 };

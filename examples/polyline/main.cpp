@@ -3,29 +3,20 @@
 
 #include "application.hpp"
 #include "canvas.hpp"
-
-namespace {
-struct AppSettings {
-    const char* title;
-    size_t width;
-    size_t height;
-};
-
-constexpr AppSettings settings{"Interactive Polyline", 640, 640};
-}
+#include "format.hpp"
 
 int main() {
-    Application app{settings.title, settings.width, settings.height};
+    Application app("Interactive Polyline", 640, 640);
 
     try {
         app.init();
     } catch (const std::runtime_error& e) {
-        std::cerr << e.what() << "\n";
+        eprintln("{}", e.what());
         return 1;
     }
 
     std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
     app.addComponent(std::move(canvas));
 
-    app.start();
+    app.start(60.0);
 }

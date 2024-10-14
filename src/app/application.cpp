@@ -32,7 +32,10 @@ void Application::addComponent(ComponentPtr widget) {
     m_components.push_back(std::move(widget));
 }
 
-void Application::start() { m_loop.start(*this); }
+void Application::start(const u64 fps) {
+    assert(fps <= FPS_MAX);
+    m_loop.start(*this, fps);
+}
 
 void Application::event(const Event* event) {
     for (ComponentPtr& cptr : m_components) {
