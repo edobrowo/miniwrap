@@ -63,4 +63,9 @@ constexpr inline N smoothstep(N left, N right, N t) {
     return hermite(clamp(scale(t, left, right)));
 }
 
+template <std::integral I>
+constexpr inline I divceil(I num, I denom) {
+    return num / denom + (num % denom != 0);
+}
+
 }

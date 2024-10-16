@@ -22,8 +22,8 @@ public:
     bool isLeftClick() const;
     bool isRightClick() const;
 
-    int x() const;
-    int y() const;
+    i32 x() const;
+    i32 y() const;
 
     bool isSingleClick() const;
     bool isDoubleClick() const;

@@ -26,9 +26,9 @@ bool MouseClickEvent::isRightClick() const {
     return isPressed() && button == MouseButton::Right;
 }
 
-int MouseClickEvent::x() const { return pos.x; }
+i32 MouseClickEvent::x() const { return pos.x; }
 
-int MouseClickEvent::y() const { return pos.y; }
+i32 MouseClickEvent::y() const { return pos.y; }
 
 bool MouseClickEvent::isSingleClick() const { return clickCount == 1; }
 
