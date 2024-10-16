@@ -12,29 +12,29 @@ public:
     Conway(const Size width, const Size height)
         : m_width(width),
           m_height(height),
-          m_cells((width + 2) * (height + 2)),
-          m_temp((width + 2) * (height + 2)) {}
+          m_cells(width * height),
+          m_temp(width * height) {}
     ~Conway() = default;
 
     bool operator()(const Index x, const Index y) {
-        return m_cells[(y + 1) * m_width + x + 1];
+        return m_cells[y * m_width + x];
     }
 
     void set(const Index x, const Index y, const bool b) {
         assert(x < m_width);
         assert(y < m_height);
-        m_cells.set((y + 1) * m_width + x + 1, b);
+        m_cells.set(y * m_width + x, b);
     }
 
     void toggle(const Index x, const Index y) {
         assert(x < m_width);
         assert(y < m_height);
-        m_cells.toggle((y + 1) * m_width + x + 1);
+        m_cells.toggle(y * m_width + x);
     }
 
     void step() {
-        for (Index y = 1; y <= m_height; ++y) {
-            for (Index x = 1; x <= m_width; ++x) {
+        for (Index y = 0; y < m_height; ++y) {
+            for (Index x = 0; x < m_width; ++x) {
                 Size alive = countAlive(x, y);
                 Index i = y * m_width + x;
                 bool b = (m_cells[i] && (alive == 2 || alive == 3)) ||
@@ -53,6 +53,9 @@ private:
         Size count = 0;
         for (auto offset : m_offsets) {
             Point2I cell = center + offset;
+            if (cell.x < 0 || cell.x >= m_width || cell.y < 0 ||
+                cell.y >= m_height)
+                continue;
             Index i = cell.y * m_width + cell.x;
             count += m_cells[i];
         }
