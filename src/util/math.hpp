@@ -37,7 +37,7 @@ constexpr inline F unit_clamp(F value) {
 }
 
 template <std::floating_point F>
-constexpr inline F lerp(F a, F b, F t) {
+constexpr inline F lerp(F t, F a, F b) {
     return t * a + (1.0 - t) * b;
 }
 
