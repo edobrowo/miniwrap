@@ -60,7 +60,7 @@ private:
                                          static_cast<f64>(width), 0.0, 10.0);
                 const f64 yf = math::map(static_cast<f64>(y), 0.0,
                                          static_cast<f64>(height), 0.0, 10.0);
-                noiseGrid[y * width + x] = perlin.noise(xf, yf, zf);
+                noiseGrid[y * width + x] = perlin.octave(xf, yf, zf, 5, 0.5);
             }
         }
     }

@@ -1,64 +1,125 @@
 #pragma once
 
+#include <optional>
+
 #include "common.hpp"
 #include "math.hpp"
 
 namespace noise {
 
-// https://adrianb.io/2014/08/09/perlinnoise.html
-// https://mrl.cs.nyu.edu/~perlin/noise/
+/// @brief Perlin noise.
+/// @note Resources used:
+/// - [Understanding Perlin Noise by Adrian
+/// Biagioli](https://adrianb.io/2014/08/09/perlinnoise.html)
+/// - [Improved Noise reference implementation by Ken
+/// Perlin](https://mrl.cs.nyu.edu/~perlin/noise/)
 class Perlin {
 public:
-    using Seed = u64;
-
+    /// @brief Uses Ken Perlin's original hash LUT for gradient vectors.
     Perlin() = default;
-    // TODO: Perlin(const Seed s);
 
-    f64 noise(const f64 x) const { return noise(x, 0.0, 0.0); }
-
-    f64 noise(const f64 x, const f64 y) const { return noise(x, y, 0.0); }
-
-    f64 noise(const f64 x, const f64 y, const f64 z) const {
+    /// @brief Determines the 3-D Perlin noise value for the given vector.
+    /// @param x x-component.
+    /// @param y y-component.
+    /// @param z z-component.
+    /// @return noise value.
+    f64 gen(const f64 x, const f64 y, const f64 z) const {
+        // Pseudo-randomly generate gradient vectors at each vertex. The
+        // gradient vector is determined by hashing the input vector. The index
+        // into the pseudo-random hash permutation is given by the integral part
+        // of each component mod 256.
         const u8 xi = static_cast<u8>(static_cast<i64>(std::floor(x)) & 255);
         const u8 yi = static_cast<u8>(static_cast<i64>(std::floor(y)) & 255);
         const u8 zi = static_cast<u8>(static_cast<i64>(std::floor(z)) & 255);
 
+        const u8 x0y0z0 = p[p[p[xi] + yi] + zi];
+        const u8 x0y1z0 = p[p[p[xi] + yi + 1] + zi];
+        const u8 x0y0z1 = p[p[p[xi] + yi] + zi + 1];
+        const u8 x0y1z1 = p[p[p[xi] + yi + 1] + zi + 1];
+        const u8 x1y0z0 = p[p[p[xi + 1] + yi] + zi];
+        const u8 x1y1z0 = p[p[p[xi + 1] + yi + 1] + zi];
+        const u8 x1y0z1 = p[p[p[xi + 1] + yi] + zi + 1];
+        const u8 x1y1z1 = p[p[p[xi + 1] + yi + 1] + zi + 1];
+
+        // The fractional component indicates a point within the unit cube.
         const f64 xf = x - std::floor(x);
         const f64 yf = y - std::floor(y);
         const f64 zf = z - std::floor(z);
 
-        const f64 u = Perlin::fade(xf);
-        const f64 v = Perlin::fade(yf);
-        const f64 w = Perlin::fade(zf);
+        // Apply easing to smoothly transition between gradient values.
+        const f64 u = fade(xf);
+        const f64 v = fade(yf);
+        const f64 w = fade(zf);
 
-        const u8 aaa = p[p[p[xi] + yi] + zi];
-        const u8 aba = p[p[p[xi] + yi + 1] + zi];
-        const u8 aab = p[p[p[xi] + yi] + zi + 1];
-        const u8 abb = p[p[p[xi] + yi + 1] + zi + 1];
-        const u8 baa = p[p[p[xi + 1] + yi] + zi];
-        const u8 bba = p[p[p[xi + 1] + yi + 1] + zi];
-        const u8 bab = p[p[p[xi + 1] + yi] + zi + 1];
-        const u8 bbb = p[p[p[xi + 1] + yi + 1] + zi + 1];
+        // The hash is used to dot a particular distance vector and gradient
+        // vector pair. Then trilinearly interpolate between the 8 values.
+        const f64 x1 =
+            lerp(u, grad(x0y0z0, xf, yf, zf), grad(x1y0z0, xf - 1.0, yf, zf));
+        const f64 x2 = lerp(u, grad(x0y1z0, xf, yf - 1.0, zf),
+                            grad(x1y1z0, xf - 1.0, yf - 1.0, zf));
+        const f64 y1 = lerp(v, x1, x2);
 
-        const f64 x1 = Perlin::lerp(u, Perlin::grad(aaa, xf, yf, zf),
-                                    Perlin::grad(baa, xf - 1.0, yf, zf));
-        const f64 x2 = Perlin::lerp(u, Perlin::grad(aba, xf, yf - 1.0, zf),
-                                    Perlin::grad(bba, xf - 1.0, yf - 1.0, zf));
-        const f64 y1 = Perlin::lerp(v, x1, x2);
+        const f64 x3 = lerp(u, grad(x0y0z1, xf, yf, zf - 1.0),
+                            grad(x1y0z1, xf - 1.0, yf, zf - 1.0));
+        const f64 x4 = lerp(u, grad(x0y1z1, xf, yf - 1.0, zf - 1.0),
+                            grad(x1y1z1, xf - 1.0, yf - 1.0, zf - 1.0));
+        const f64 y2 = lerp(v, x3, x4);
 
-        const f64 x3 = Perlin::lerp(u, Perlin::grad(aab, xf, yf, zf - 1.0),
-                                    Perlin::grad(bab, xf - 1.0, yf, zf - 1.0));
-        const f64 x4 =
-            Perlin::lerp(u, Perlin::grad(abb, xf, yf - 1.0, zf - 1.0),
-                         Perlin::grad(bbb, xf - 1.0, yf - 1.0, zf - 1.0));
-        const f64 y2 = Perlin::lerp(v, x3, x4);
+        return (lerp(w, y1, y2) + 1) / 2;
+    }
 
-        return (Perlin::lerp(w, y1, y2) + 1) / 2;
+    /// @brief Determines the 1-D Perlin noise value for the given vector.
+    /// @param x x-component.
+    /// @return noise value.
+    f64 gen(const f64 x) const { return gen(x, 0.0, 0.0); }
+
+    /// @brief Determines the 2-D Perlin noise value for the given vector.
+    /// @param x x-component.
+    /// @param y y-component.
+    /// @return noise value.
+    f64 gen(const f64 x, const f64 y) const { return gen(x, y, 0.0); }
+
+    /// @brief Generate layered octaves of 3-D Perlin noise.
+    /// @param x x-component.
+    /// @param y y-component.
+    /// @param z z-component.
+    /// @param octaves Number of octaves to layer.
+    /// @param persistence Scalar applied to each successive layer.
+    /// @return Perlin noise value.
+    f64 octave(const f64 x, const f64 y, const f64 z, const u64 octaves,
+               const f64 persistence) const {
+        f64 total = 0;
+        f64 frequency = 1;
+        f64 amplitude = 1;
+        f64 max = 0;
+
+        for (u64 i = 0; i < octaves; ++i) {
+            total +=
+                amplitude * gen(x * frequency, y * frequency, z * frequency);
+            max += amplitude;
+            amplitude *= persistence;
+            frequency *= 2;
+        }
+
+        return max > 0.0 ? total / max : 0.0;
     }
 
 private:
+    /// @brief Apply the spline 6t^5 - 15t^4 + 10t^3.
+    /// @param t value.
+    /// @return result.
     static f64 fade(const f64 t) { return t * t * t * (t * (t * 6 - 15) + 10); }
 
+    /// @brief Computes the dot product between a hashed distance vector and an
+    /// edge vector. Distance vectors refer to vectors from each corner of the
+    /// unit cube to the point within the unit cube. Gradient vectors are simply
+    /// one of the 12 edge vectors, i.e., a vector from the center of the cube
+    /// to one of center of an edge.
+    /// @param hash hashed
+    /// @param x Distance vector x-component.
+    /// @param y Distance vector y-component.
+    /// @param z Distance vector z-component.
+    /// @return Gradient value.
     static f64 grad(const i64 hash, const f64 x, const f64 y, const f64 z) {
         switch (hash & 0xF) {
         case 0x0:
@@ -98,11 +159,16 @@ private:
         }
     }
 
+    /// @brief Linearly interpolate between two values.
+    /// @param t Parameter.
+    /// @param a Lower bound.
+    /// @param b Upper bound.
+    /// @return Result.
     static f64 lerp(const f64 t, const f64 a, const f64 b) {
         return a + t * (b - a);
     }
 
-    // clang-format off
+    /// @brief Ken Perlin's original hash LUT.
     static constexpr u8 p[256]{
         151, 160, 137, 91,  90,  15,  131, 13,  201, 95,  96,  53,  194, 233,
         7,   225, 140, 36,  103, 30,  69,  142, 8,   99,  37,  240, 21,  10,
@@ -124,7 +190,6 @@ private:
         205, 93,  222, 114, 67,  29,  24,  72,  243, 141, 128, 195, 78,  66,
         215, 61,  156, 180,
     };
-    // clang-format on
 };
 
 }
