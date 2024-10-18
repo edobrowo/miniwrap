@@ -1,6 +1,3 @@
-#include <iostream>
-#include <memory>
-
 #include "application.hpp"
 #include "math.hpp"
 

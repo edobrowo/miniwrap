@@ -1,0 +1,4 @@
+file(GLOB SRC "*.cpp")
+add_executable(empty ${SRC})
+target_link_libraries(empty PRIVATE app event render)
+target_include_directories(empty PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

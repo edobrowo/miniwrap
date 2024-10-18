@@ -1,5 +1,4 @@
-file(GLOB CONWAY_SRC "*.cpp")
-add_executable(conway ${CONWAY_SRC})
+file(GLOB SRC "*.cpp")
+add_executable(conway ${SRC})
 target_link_libraries(conway PRIVATE app event render)
 target_include_directories(conway PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

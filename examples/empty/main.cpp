@@ -1,8 +1,19 @@
 #include "application.hpp"
-#include "canvas.hpp"
+
+class Canvas : public Component {
+public:
+    Canvas() = default;
+
+    void update(const FrameInfo& info) override {}
+
+    void render(const Renderer& renderer) override {
+        renderer.clear(Color(0.0, 0.0, 0.0));
+        renderer.show();
+    }
+};
 
 int main() {
-    Application app("Interactive Polyline", 640, 640);
+    Application app("Example", 640, 640);
 
     try {
         app.init();

@@ -1,5 +1,4 @@
-file(GLOB PERLIN_SRC "*.cpp")
-add_executable(perlin ${PERLIN_SRC})
+file(GLOB SRC "*.cpp")
+add_executable(perlin ${SRC})
 target_link_libraries(perlin PRIVATE app event render)
 target_include_directories(perlin PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-set(EXECUTABLE_OUTPUT_PATH ${CMAKE_CURRENT_SOURCE_DIR})

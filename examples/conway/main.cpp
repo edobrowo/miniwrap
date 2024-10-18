@@ -1,11 +1,6 @@
-#include <iostream>
-#include <memory>
-
 #include "application.hpp"
 #include "bitarray.hpp"
-#include "color.hpp"
 #include "math.hpp"
-#include "timer.hpp"
 
 class Conway {
 public:

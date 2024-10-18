@@ -1,8 +1,4 @@
-#include <iostream>
-#include <memory>
-
 #include "application.hpp"
-#include "color.hpp"
 #include "math.hpp"
 #include "noise.hpp"
 
