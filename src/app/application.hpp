@@ -3,12 +3,12 @@
 #include <memory>
 #include <vector>
 
+#include "canvas.hpp"
 #include "common.hpp"
 #include "component.hpp"
 #include "event.hpp"
 #include "eventloop.hpp"
 #include "format.hpp"
-#include "frameinfo.hpp"
 #include "renderer.hpp"
 #include "window.hpp"
 
@@ -18,20 +18,23 @@ class Application {
 public:
     using ComponentPtr = std::unique_ptr<Component>;
 
-    Application(const std::string& title, const u32 window_width,
-                const u32 window_height);
+    Application() = default;
     ~Application();
 
-    void init();
+    void init(const std::string& title, const u32 window_width,
+              const u32 window_height);
 
-    void addComponent(ComponentPtr widget);
+    const Window& window() const;
+    Window& windowMut();
+
+    void add(ComponentPtr widget);
     void start(const u64 fps);
 
     void event(const Event* event);
-    void tick(const FrameInfo& info);
+    void tick();
 
 private:
-    void update(const FrameInfo& info);
+    void update();
     void render();
 
     void quit();
@@ -39,6 +42,7 @@ private:
     Window m_mainWindow;
     EventLoop m_loop;
     Renderer m_renderer;
+    Canvas m_canvas;
 
     std::vector<ComponentPtr> m_components;
 };

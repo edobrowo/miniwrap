@@ -1,29 +1,26 @@
 #include "application.hpp"
 
-class Canvas : public Component {
+class Empty : public Component {
 public:
-    Canvas() = default;
+    Empty() = default;
 
-    void update(const FrameInfo& info) override {}
+    void update() override {}
 
-    void render(const Renderer& renderer) override {
-        renderer.clear(Color(0.0, 0.0, 0.0));
-        renderer.show();
-    }
+    void draw(const Canvas& canvas) override {}
 };
 
 int main() {
-    Application app("Example", 640, 640);
+    Application app;
 
     try {
-        app.init();
+        app.init("Example", 640, 640);
     } catch (const std::runtime_error& e) {
         eprintln("{}", e.what());
         return 1;
     }
 
-    std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
-    app.addComponent(std::move(canvas));
+    std::unique_ptr<Empty> empty = std::make_unique<Empty>();
+    app.add(std::move(empty));
 
     app.start(60.0);
 }

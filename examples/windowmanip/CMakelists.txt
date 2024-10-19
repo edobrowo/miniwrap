@@ -1,0 +1,4 @@
+file(GLOB SRC "*.cpp")
+add_executable(windowmanip ${SRC})
+target_link_libraries(windowmanip PRIVATE app event render)
+target_include_directories(windowmanip PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

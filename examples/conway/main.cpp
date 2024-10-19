@@ -70,7 +70,7 @@ const std::vector<Point2I> Conway::m_offsets{
     Point2I(1, 0),   Point2I(-1, 1), Point2I(0, 1),  Point2I(1, 1),
 };
 
-class Canvas : public Component {
+class Grid : public Component {
 public:
     const Size width;
     const Size height;
@@ -83,7 +83,7 @@ public:
     bool dragging;
     bool clickedCellState;
 
-    Canvas()
+    Grid()
         : width(64),
           height(64),
           cellSize(10),
@@ -127,44 +127,40 @@ public:
         }
     }
 
-    void update(const FrameInfo& info) override {
+    void update() override {
         if (stepper.elapsed() >= stepDuration) {
             conway.step();
             stepper.restart();
         }
     }
 
-    void render(const Renderer& renderer) override {
+    void draw(const Canvas& canvas) override {
         const Color background(0.0, 0.0, 0.0);
         const Color cell(1.0, 1.0, 1.0);
 
-        renderer.clear(background);
-        renderer.setColor(cell);
+        canvas.setColor(cell);
         for (Index y = 0; y < width; ++y) {
             for (Index x = 0; x < height; ++x) {
                 if (conway(x, y)) {
-                    renderer.rectFill(x * cellSize, y * cellSize, cellSize,
-                                      cellSize);
+                    canvas.rect(x * cellSize, y * cellSize, cellSize, cellSize);
                 }
             }
         }
-
-        renderer.show();
     }
 };
 
 int main() {
-    Application app("Conway's Game of Life", 640, 640);
+    Application app;
 
     try {
-        app.init();
+        app.init("Conway's Game of Life", 640, 640);
     } catch (const std::runtime_error& e) {
         eprintln("{}", e.what());
         return 1;
     }
 
-    std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
-    app.addComponent(std::move(canvas));
+    std::unique_ptr<Grid> grid = std::make_unique<Grid>();
+    app.add(std::move(grid));
 
     app.start(60.0);
 }

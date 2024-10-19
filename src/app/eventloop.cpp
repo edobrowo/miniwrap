@@ -6,7 +6,6 @@
 
 #include "application.hpp"
 #include "event_builder.hpp"
-#include "frameinfo.hpp"
 
 EventLoop::EventLoop() : m_running(false) {}
 
@@ -21,7 +20,6 @@ void EventLoop::run(Application& app, const u64 fps) {
     const u64 mspf = 1000 / fps;
     SDL_Event sdl_event;
 
-    FrameInfo info{0, 0, fps};
     Timer fps_timer;
     fps_timer.start();
     while (m_running) {
@@ -32,8 +30,7 @@ void EventLoop::run(Application& app, const u64 fps) {
         }
 
         if (fps_timer.elapsed() >= mspf) {
-            ++info.frame;
-            app.tick(info);
+            app.tick();
             fps_timer.restart();
         }
     }

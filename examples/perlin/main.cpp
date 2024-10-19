@@ -2,7 +2,7 @@
 #include "math.hpp"
 #include "noise.hpp"
 
-class Canvas : public Component {
+class Grid : public Component {
 public:
     const Size width;
     const Size height;
@@ -15,7 +15,7 @@ public:
     Timer stepper;
     u64 stepDuration;
 
-    Canvas()
+    Grid()
         : width(128),
           height(128),
           cellSize(5),
@@ -27,7 +27,7 @@ public:
         stepper.start();
     }
 
-    void update(const FrameInfo& info) override {
+    void update() override {
         if (stepper.elapsed() >= stepDuration) {
             fill(tick);
             tick += 0.1;
@@ -35,17 +35,14 @@ public:
         }
     }
 
-    void render(const Renderer& renderer) override {
-        renderer.clear(Color(0.0, 0.0, 0.0));
+    void draw(const Canvas& canvas) override {
         for (Index y = 0; y < width; ++y) {
             for (Index x = 0; x < height; ++x) {
                 const f64 g = noiseGrid[y * width + x];
-                renderer.setColor(Color(g / 1.5, g / 3.0, g * 1.5));
-                renderer.rectFill(x * cellSize, y * cellSize, cellSize,
-                                  cellSize);
+                canvas.setColor(Color(g / 1.5, g / 3.0, g * 1.5));
+                canvas.rect(x * cellSize, y * cellSize, cellSize, cellSize);
             }
         }
-        renderer.show();
     }
 
 private:
@@ -63,17 +60,17 @@ private:
 };
 
 int main() {
-    Application app("Perlin noise", 640, 640);
+    Application app;
 
     try {
-        app.init();
+        app.init("Perlin noise", 640, 640);
     } catch (const std::runtime_error& e) {
         eprintln("{}", e.what());
         return 1;
     }
 
-    std::unique_ptr<Canvas> canvas = std::make_unique<Canvas>();
-    app.addComponent(std::move(canvas));
+    std::unique_ptr<Grid> grid = std::make_unique<Grid>();
+    app.add(std::move(grid));
 
     app.start(60.0);
 }
