@@ -1,0 +1,4 @@
+file(GLOB SRC "*.cpp")
+add_executable(flowfields ${SRC})
+target_link_libraries(flowfields PRIVATE app event render)
+target_include_directories(flowfields PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

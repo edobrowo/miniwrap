@@ -10,10 +10,15 @@ public:
 };
 
 int main() {
+    const char* title = "Empty";
+    constexpr u64 width = 640;
+    constexpr u64 height = 640;
+    constexpr u64 fps = 60;
+
     Application app;
 
     try {
-        app.init("Example", 640, 640);
+        app.init(title, width, height);
     } catch (const std::runtime_error& e) {
         eprintln("{}", e.what());
         return 1;
@@ -22,5 +27,5 @@ int main() {
     std::unique_ptr<Empty> empty = std::make_unique<Empty>();
     app.add(std::move(empty));
 
-    app.start(60.0);
+    app.start(fps);
 }

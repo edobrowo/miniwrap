@@ -116,10 +116,15 @@ void PolylineDrawer::draw(const Canvas& canvas) {
 }
 
 int main() {
+    const char* title = "Interactive Polyline";
+    constexpr u64 width = 640;
+    constexpr u64 height = 640;
+    constexpr u64 fps = 60;
+
     Application app;
 
     try {
-        app.init("Interactive Polyline", 640, 640);
+        app.init(title, width, height);
     } catch (const std::runtime_error& e) {
         eprintln("{}", e.what());
         return 1;
@@ -129,5 +134,5 @@ int main() {
         std::make_unique<PolylineDrawer>();
     app.add(std::move(polyline_drawer));
 
-    app.start(60.0);
+    app.start(fps);
 }

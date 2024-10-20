@@ -60,10 +60,15 @@ private:
 };
 
 int main() {
+    const char* title = "Perlin noise";
+    constexpr u64 width = 640;
+    constexpr u64 height = 640;
+    constexpr u64 fps = 60;
+
     Application app;
 
     try {
-        app.init("Perlin noise", 640, 640);
+        app.init(title, width, height);
     } catch (const std::runtime_error& e) {
         eprintln("{}", e.what());
         return 1;
@@ -72,5 +77,5 @@ int main() {
     std::unique_ptr<Grid> grid = std::make_unique<Grid>();
     app.add(std::move(grid));
 
-    app.start(60.0);
+    app.start(fps);
 }

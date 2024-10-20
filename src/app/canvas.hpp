@@ -17,6 +17,8 @@ public:
 
     void setColor(const Color& c) const;
 
+    void fill(const Color& c) const;
+
     void pixel(const i32 x, const i32 y) const;
     void pixel(const Point2I p) const;
 

@@ -12,6 +12,11 @@ Size Canvas::height() const { return m_height; }
 
 void Canvas::setColor(const Color& c) const { m_renderer->setColor(c); }
 
+void Canvas::fill(const Color& c) const {
+    m_renderer->setColor(c);
+    rect(0, 0, m_width, m_height);
+}
+
 void Canvas::pixel(const i32 x, const i32 y) const { m_renderer->pixel(x, y); }
 
 void Canvas::pixel(const Point2I p) const { m_renderer->pixel(p.x, p.y); }
