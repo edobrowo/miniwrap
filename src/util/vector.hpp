@@ -60,7 +60,10 @@ public:
         using Type = f64;
     };
 
-    Length<N>::Type length() const { return std::sqrt(lengthSquared()); }
+    Length<N>::Type length() const {
+        using std::sqrt;
+        return sqrt(lengthSquared());
+    }
 
     inline N dot(Vector3<N> other) const {
         return x * other.x + y * other.y + z * other.z;

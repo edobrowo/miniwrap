@@ -1,14 +1,14 @@
 #include "canvas.hpp"
 
-void Canvas::init(Renderer* renderer, const Size width, const Size height) {
+void Canvas::init(Renderer* renderer, const u32 width, const u32 height) {
     m_renderer = renderer;
     m_width = width;
     m_height = height;
 }
 
-Size Canvas::width() const { return m_width; }
+u32 Canvas::width() const { return m_width; }
 
-Size Canvas::height() const { return m_height; }
+u32 Canvas::height() const { return m_height; }
 
 void Canvas::setColor(const Color& c) const { m_renderer->setColor(c); }
 

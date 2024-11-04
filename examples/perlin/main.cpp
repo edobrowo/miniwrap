@@ -4,9 +4,9 @@
 
 class Grid : public Component {
 public:
-    const Size width;
-    const Size height;
-    const Size cellSize;
+    const u32 width;
+    const u32 height;
+    const u32 cellSize;
 
     noise::Perlin perlin;
     std::vector<f64> noiseGrid;

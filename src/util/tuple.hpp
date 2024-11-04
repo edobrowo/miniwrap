@@ -11,7 +11,7 @@ class Tuple2 {
 public:
     N x, y;
 
-    static constexpr Size DIMS = 2;
+    static constexpr u32 DIMS = 2;
 
     Tuple2() = default;
     Tuple2(N x, N y) : x(x), y(y) {}
@@ -128,7 +128,7 @@ class Tuple3 {
 public:
     N x, y, z;
 
-    static constexpr Size DIMS = 3;
+    static constexpr u32 DIMS = 3;
 
     Tuple3() = default;
     Tuple3(N x, N y, N z) : x(x), y(y), z(z) {}

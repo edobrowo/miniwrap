@@ -25,7 +25,7 @@ private:
     void expand(const Size size);
 
     Size m_capacity;
-    Size m_next;
+    Index m_next;
     char* m_buffer;
 
     static constexpr Size INITIAL_CAPACITY = 200;

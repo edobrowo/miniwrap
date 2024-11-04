@@ -72,9 +72,9 @@ const std::vector<Point2I> Conway::m_offsets{
 
 class Grid : public Component {
 public:
-    const Size width;
-    const Size height;
-    const Size cellSize;
+    const u32 width;
+    const u32 height;
+    const u32 cellSize;
 
     Conway conway;
     Timer stepper;

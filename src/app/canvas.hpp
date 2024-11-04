@@ -10,10 +10,10 @@ class Canvas {
 public:
     Canvas() = default;
 
-    void init(Renderer* renderer, const Size width, const Size height);
+    void init(Renderer* renderer, const u32 width, const u32 height);
 
-    Size width() const;
-    Size height() const;
+    u32 width() const;
+    u32 height() const;
 
     void setColor(const Color& c) const;
 
@@ -50,6 +50,6 @@ public:
 
 private:
     Renderer* m_renderer;
-    Size m_width;
-    Size m_height;
+    u32 m_width;
+    u32 m_height;
 };

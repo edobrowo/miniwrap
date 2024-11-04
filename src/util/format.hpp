@@ -87,8 +87,8 @@ public:
         std::vector<Token> tokens =
             parseFormatString(m_formatString, m_formatStringLength);
 
-        Size num_args = sizeof...(args);
-        Size num_formatters = 0;
+        u32 num_args = sizeof...(args);
+        u32 num_formatters = 0;
         for (auto token : tokens) {
             if (token.kind == Token::Kind::Formatter)
                 ++num_formatters;
