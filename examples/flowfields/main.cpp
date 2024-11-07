@@ -4,6 +4,7 @@
 #include "application.hpp"
 #include "math.hpp"
 #include "noise.hpp"
+#include "spline.hpp"
 
 class FlowField2D {
 public:
@@ -100,16 +101,25 @@ public:
         canvas.setColor(Color(0.8, 0.1, 0.15));
 
         Vector2D vertex(100.0, 100.0);
-        std::vector<Point2I> pts;
-        pts.emplace_back(vertex);
+        std::vector<Vector2D> knots;
+        knots.emplace_back(vertex);
 
         f64 step_size = 50.0;
         for (Index i = 0; i < 20; ++i) {
             const f64 angle = m_field(vertex);
             vertex += step_size * Vector2D(std::cos(angle), std::sin(angle));
-            pts.emplace_back(vertex);
+            knots.emplace_back(vertex);
             step_size -= 5;
         }
+
+        CubicSpline2D spline(knots);
+        spline.solve();
+
+        std::vector<Point2I> pts;
+        for (Index i = 0; i < knots.size() - 1; ++i)
+            pts.emplace_back(spline.eval(i, 0.5));
+
+        // eprintln("{}", pts);
 
         canvas.polyline(pts);
     }
