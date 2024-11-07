@@ -13,10 +13,33 @@ public:
     void add(const Vector2D& knot) { m_knots.push_back(knot); }
     void clear() { m_knots.clear(); }
 
-    virtual void solve() = 0;
+    virtual void solve() {};
 
 protected:
     std::vector<Vector2D> m_knots;
+};
+
+class CatmullRomSpline2D : public Spline2D {
+public:
+    CatmullRomSpline2D() = default;
+    CatmullRomSpline2D(const std::vector<Vector2D>& knots) : Spline2D(knots) {}
+    ~CatmullRomSpline2D() = default;
+
+    Vector2D operator()(const Index segment, const f64 t) {
+        assert(segment > 0);
+        assert(segment < m_knots.size() - 1);
+        assert(t >= 0.0);
+        assert(t <= 1.0);
+
+        const Vector2D a = -m_knots[segment - 1] + 3.0 * m_knots[segment] -
+                           3.0 * m_knots[segment + 1] + m_knots[segment + 2];
+        const Vector2D b = 2.0 * m_knots[segment - 1] - 5.0 * m_knots[segment] +
+                           4.0 * m_knots[segment + 1] - m_knots[segment + 2];
+        const Vector2D c = -m_knots[segment - 1] + m_knots[segment + 1];
+        const Vector2D d = 2.0 * m_knots[segment];
+
+        return 0.5 * ((((a * t + b) * t + c) * t) + d);
+    }
 };
 
 // https://stackoverflow.com/a/23258882

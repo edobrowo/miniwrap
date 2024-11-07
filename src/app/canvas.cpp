@@ -102,13 +102,13 @@ void Canvas::circleline(const Point2I p, const i32 radius) const {
 }
 
 void Canvas::cubicSplineCurve(const std::vector<Point2I>& points,
-                              const u32 divisions = 20) const {
+                              const u32 divisions) const {
     assert(points.size() <= 2);
     assert(divisions > 0);
 
     std::vector<Vector2D> knots;
     for (auto it = points.begin(); it != points.end(); ++it)
-        knots.emplace_back(*it);
+        knots.emplace_back(static_cast<f64>(it->x), static_cast<f64>(it->y));
 
     CubicSpline2D spline(knots);
     spline.solve();
@@ -117,7 +117,8 @@ void Canvas::cubicSplineCurve(const std::vector<Point2I>& points,
     for (Index i = 0, n = knots.size(); i < n - 1; ++i) {
         for (Index d = 0; d < divisions; ++d) {
             const f64 t = static_cast<f64>(d) / static_cast<f64>(divisions);
-            res.emplace_back(spline(i, t));
+            const Vector2D pt = spline(i, t);
+            res.emplace_back(pt);
         }
     }
 

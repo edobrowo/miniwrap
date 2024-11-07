@@ -20,6 +20,9 @@ public:
         if (m_knots.size() <= 2)
             return;
 
+        // CubicSpline2D spline(m_knots);
+        // spline.solve();
+
         CubicSpline2D spline(m_knots);
         spline.solve();
 

@@ -116,8 +116,10 @@ public:
         spline.solve();
 
         std::vector<Point2I> pts;
-        for (Index i = 0; i < knots.size() - 1; ++i)
-            pts.emplace_back(spline.eval(i, 0.5));
+        for (Index i = 0; i < knots.size() - 1; ++i) {
+            const Vector2D pt = spline(i, 0.5);
+            pts.emplace_back(pt);
+        }
 
         // eprintln("{}", pts);
 
