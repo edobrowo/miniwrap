@@ -101,29 +101,21 @@ public:
         canvas.setColor(Color(0.8, 0.1, 0.15));
 
         Vector2D vertex(100.0, 100.0);
-        std::vector<Vector2D> knots;
-        knots.emplace_back(vertex);
+        std::vector<Point2I> pts;
+        pts.emplace_back(vertex);
 
         f64 step_size = 50.0;
-        for (Index i = 0; i < 20; ++i) {
+        for (Index i = 0; i < 100; ++i) {
             const f64 angle = m_field(vertex);
-            vertex += step_size * Vector2D(std::cos(angle), std::sin(angle));
-            knots.emplace_back(vertex);
+            const Vector2D step =
+                step_size * Vector2D(std::cos(angle), std::sin(angle));
+            vertex += step;
+            if (step != Vector2D(0.0, 0.0))
+                pts.emplace_back(vertex);
             step_size -= 5;
         }
 
-        CubicSpline2D spline(knots);
-        spline.solve();
-
-        std::vector<Point2I> pts;
-        for (Index i = 0; i < knots.size() - 1; ++i) {
-            const Vector2D pt = spline(i, 0.5);
-            pts.emplace_back(pt);
-        }
-
-        // eprintln("{}", pts);
-
-        canvas.polyline(pts);
+        canvas.curve(pts);
     }
 
 private:

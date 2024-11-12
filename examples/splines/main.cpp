@@ -17,14 +17,7 @@ public:
     void draw(const Canvas& canvas) override {
         canvas.fill(Color(1.0));
 
-        if (m_knots.size() <= 2)
-            return;
-
-        // CubicSpline2D spline(m_knots);
-        // spline.solve();
-
-        CubicSpline2D spline(m_knots);
-        spline.solve();
+        CatmullRomSpline2D spline(catmull_rom_tag::centripetal, m_knots);
 
         std::vector<Point2I> knot_pts;
         std::vector<Point2I> pts;
@@ -33,8 +26,8 @@ public:
             knot_pts.emplace_back(*it);
 
         const u64 divisions = 10;
-        for (Index i = 0, n = m_knots.size(); i < n - 1; ++i) {
-            for (Index d = 0; d < divisions; ++d) {
+        for (Index i = 0, n = spline.segments(); i < n; ++i) {
+            for (Index d = 0; d <= divisions; ++d) {
                 const f64 t = static_cast<f64>(d) / static_cast<f64>(divisions);
                 pts.emplace_back(spline(i, t));
             }
@@ -44,8 +37,8 @@ public:
         canvas.polyline(pts);
 
         canvas.setColor(Color(0.8, 0.1, 0.15));
-        canvas.circles(pts, 2);
-        canvas.circles(knot_pts, 5);
+        // canvas.circles(pts, 2);
+        canvas.circles(knot_pts, 2);
     }
 };
 

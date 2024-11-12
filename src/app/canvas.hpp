@@ -47,8 +47,8 @@ public:
     void circleline(const i32 x, const i32 y, const i32 radius) const;
     void circleline(const Point2I p, const i32 radius) const;
 
-    void cubicSplineCurve(const std::vector<Point2I>& points,
-                          const u32 divisions = 20) const;
+    void curve(const std::vector<Point2I>& points,
+               const u32 divisions = 20) const;
 
 private:
     Renderer* m_renderer;
