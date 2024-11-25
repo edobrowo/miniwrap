@@ -33,7 +33,7 @@ public:
         return {x + other.x, y + other.y};
     }
     template <Numeric M>
-    Point2<N> operator+=(Vector2<M> other) const {
+    Point2<N> operator+=(Vector2<M> other) {
         x += other.x;
         y += other.y;
         return *this;

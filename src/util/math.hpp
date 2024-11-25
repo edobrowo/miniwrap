@@ -18,6 +18,16 @@ constexpr f64 InvTau = 0.15915494309189533577;
 // clang-format on
 
 template <Numeric N>
+constexpr inline N sqr(N value) {
+    return value * value;
+}
+
+template <Numeric N>
+constexpr inline N cube(N value) {
+    return value * value * value;
+}
+
+template <Numeric N>
 constexpr inline N step(N value, N threshold) {
     return value < threshold ? 0.0 : 1.0;
 }

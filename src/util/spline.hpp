@@ -62,6 +62,9 @@ public:
     ~CatmullRomSpline2D() = default;
 
     void add(const Vector2D& knot) override {
+        if (!m_knots.empty() && knot == m_knots.back())
+            return;
+
         m_knots.push_back(knot);
         if (m_knots.size() == 1)
             return;

@@ -6,6 +6,7 @@
 #include "noise.hpp"
 #include "spline.hpp"
 
+// https://www.tylerxhobbs.com/words/flow-fields
 class FlowField2D {
 public:
     FlowField2D(const u32 rows, const u32 cols, const f64 width,
@@ -30,9 +31,9 @@ public:
     }
 
     f64 operator()(const Index row, const Index col) const {
-        assert(row < m_rows);
-        assert(col < m_cols);
-        return m_angles[row * m_rows + col];
+        const Index r = math::clamp(row, Index(0), Index(m_rows));
+        const Index c = math::clamp(col, Index(0), Index(m_rows));
+        return m_angles[r * m_rows + c];
     }
 
     f64& operator()(const Index row, const Index col) {
@@ -89,7 +90,7 @@ public:
         for (Index row = 0; row < m_field.rows(); ++row) {
             for (Index col = 0; col < m_field.cols(); ++col) {
                 m_field(row, col) =
-                    row / static_cast<f64>(m_field.rows()) * math::Pi;
+                    col / static_cast<f64>(m_field.rows()) * math::Pi;
             }
         }
     }
@@ -98,34 +99,42 @@ public:
 
     void draw(const Canvas& canvas) override {
         canvas.fill(Color(1.0));
-        canvas.setColor(Color(0.8, 0.1, 0.15));
 
-        Vector2D vertex(100.0, 100.0);
-        std::vector<Point2I> pts;
-        pts.emplace_back(vertex);
+        // canvas.setColor(Color(0.8, 0.1, 0.15));
+        // for (Index row = 0; row < m_field.rows(); ++row)
+        //     for (Index col = 0; col < m_field.cols(); ++col)
+        //         drawVector(canvas, col, row);
 
-        f64 step_size = 50.0;
-        for (Index i = 0; i < 100; ++i) {
-            const f64 angle = m_field(vertex);
-            const Vector2D step =
-                step_size * Vector2D(std::cos(angle), std::sin(angle));
-            vertex += step;
-            if (step != Vector2D(0.0, 0.0))
+        canvas.setColor(Color(0.15, 0.1, 0.8));
+        for (Index row = 0; row < 10; ++row) {
+            for (Index col = 0; col < 10; ++col) {
+                Vector2D vertex(row * 10.0, col * 10.0);
+                std::vector<Point2I> pts;
                 pts.emplace_back(vertex);
-            step_size -= 5;
-        }
 
-        canvas.curve(pts);
+                f64 step_size = 5.0;
+                for (Index i = 0; i < 100; ++i) {
+                    const f64 angle = m_field(vertex);
+                    const Vector2D step =
+                        step_size * Vector2D(std::cos(angle), std::sin(angle));
+                    vertex += step;
+                    if (step != Vector2D(0.0, 0.0))
+                        pts.emplace_back(vertex);
+                }
+
+                canvas.curve(pts, 50);
+            }
+        }
     }
 
 private:
-    void drawVector(const Canvas& canvas, const u32 x, const u32 y) {
+    void drawVector(const Canvas& canvas, const u32 row, const u32 col) {
         const u32 radius = canvas.width() / m_field.cols() / 2;
         const u32 tail_radius = 3;
-        const Point2I tail(x * canvas.width() / m_field.cols() + radius,
-                           y * canvas.height() / m_field.rows() + radius);
+        const Point2I tail(row * canvas.width() / m_field.cols() + radius,
+                           col * canvas.height() / m_field.rows() + radius);
 
-        const f64 angle = m_field(x, y);
+        const f64 angle = m_field(row, col);
         const Point2I head(tail +
                            static_cast<f64>(radius) *
                                Vector2D(std::cos(angle), std::sin(angle)));
