@@ -1,2 +1,5 @@
-# miniwrap
-C++ wrapper for SDL. Provides RAII scopes to SDL structs, an extensive set of utility classes, and a polymorphic event hierarchy.
+# Subprocessing
+A C++ drawing and graphics library, inspired by Processing :)
+
+# Usage
+See the examples.
